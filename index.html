@@ -17,7 +17,7 @@
 <!-- Analytics: paste your Plausible, Google Analytics or Meta pixel snippet here -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: a gallery wall. Framed posters do the selling; the copy stays short and sits beside them. */
 :root {
@@ -33,7 +33,7 @@
   --mat: #FBFAF7;
   --card: #FFFFFF;
   --notice: #8A2F1E;
-  --font-display: "Bodoni Moda", Didot, "Bodoni 72", Georgia, serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   color-scheme: light;
@@ -300,9 +300,16 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
 .st-wall .frame { max-width: min(470px, calc((100dvh - 260px) / 1.36)); min-width: 180px; }
 .st-badge { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: center; }
 .st-load { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 14px; padding: 24px; text-align: center; background: rgba(220, 216, 208, .82); border-radius: 14px; font-weight: 500; }
-.st-spin { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(0,0,0,.12); border-top-color: var(--ink); animation: stspin .8s linear infinite; }
-@keyframes stspin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .st-spin { animation-duration: 2.4s; } }
+.st-pbar { display: block; width: 100%; height: 6px; border-radius: 999px; background: rgba(0,0,0,.1); overflow: hidden; }
+.st-pbar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--accent); transition: width .35s ease-out; }
+.st-load .st-pbar { width: min(260px, 70%); }
+.st-load-pct { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.st-loading { display: grid; gap: 8px; margin-bottom: 18px; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+.st-loading-row { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 500; }
+.st-loading-row [data-load-pct] { font-family: var(--font-mono); font-size: 13px; color: var(--muted); font-weight: 400; }
+/* While their games load, the example posters wait quietly in the background, then the real ones fade in */
+.studio canvas { transition: opacity .45s, filter .45s; }
+.studio.is-loading .st-mini canvas, .studio.is-loading #stPoster { opacity: .28; filter: blur(3px) grayscale(.6); }
 .st-panel { display: grid; gap: 20px; align-content: start; min-width: 0; }
 .st-panel .st-head { margin-bottom: 0; }
 
@@ -366,7 +373,8 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
   .st-swatches:not(.small) .sw i { aspect-ratio: 1 / .62; }
   .st-swatches:not(.small) { gap: 8px 8px; }
   /* The details step is a form: give it the screen, the poster waits on the next step */
-  .st-stage.on-3 .st-wall { display: none; }
+  .st-stage.on-3 .st-wall { padding: 10px; }
+  .st-stage.on-3 .st-wall .frame { max-width: min(150px, 24dvh); padding: 5px; min-width: 0; }
 }
 </style>
 </head>
@@ -536,6 +544,10 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
   <div class="st-body" id="stBody">
     <div class="st-inner">
       <!-- Step 1: design -->
+      <div class="st-loading" id="stLoading" hidden>
+        <div class="st-loading-row"><span data-load-text role="status">Finding your games…</span><span data-load-pct>0%</span></div>
+        <span class="st-pbar" aria-hidden="true"><i></i></span>
+      </div>
       <div id="stPick">
         <div class="st-head"><h2>Pick a <em>design.</em></h2><p class="st-sub" id="stPickSub">Each one is drawn from every rated game. Tap to choose.</p></div>
         <div class="st-designs" role="radiogroup" aria-label="Design">
@@ -550,7 +562,7 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
         <div class="st-wall">
           <button type="button" class="frame" data-poster="3" aria-label="View the poster full size"><span class="mat"><canvas id="stPoster" role="img" aria-label="Your poster preview"></canvas></span></button>
           <span class="st-badge" id="stBadge" hidden></span>
-          <div class="st-load" id="stLoad" hidden><span class="st-spin" aria-hidden="true"></span><span id="stLoadText" role="status">Finding your games…</span></div>
+          <div class="st-load" id="stLoad" hidden><span data-load-text>Finding your games…</span><span class="st-pbar" aria-hidden="true"><i></i></span><span class="st-load-pct" data-load-pct>0%</span></div>
         </div>
 
         <div class="st-panel" data-panel="2">
@@ -672,7 +684,7 @@ const SHOP = {
 };
 
 (() => {
-  const DISPLAY = '"Bodoni Moda", Didot, "Bodoni 72", Georgia, serif';
+  const DISPLAY = '"Playfair Display", Georgia, "Times New Roman", serif';
   const MONO = '"IBM Plex Mono", ui-monospace, Menlo, monospace';
   const RATIO = 1.41421356;
   // Where the last render put its peak marker and grid, so pages can crop close-ups
@@ -1284,10 +1296,10 @@ const SHOP = {
   state.pool = "rapid";
   const M = model();
   const posters = [
-    { el: document.getElementById("heroPoster"), layout: "climb", palette: "nightgreen" },
+    { el: document.getElementById("heroPoster"), layout: "climb", palette: "chalk" },
     { el: document.getElementById("climbPoster"), layout: "climb", palette: "chalk" },
     { el: document.getElementById("gridPoster"), layout: "grid", palette: "helvetia" },
-    { el: document.getElementById("stPoster"), layout: "climb", palette: "nightgreen", title: "" },
+    { el: document.getElementById("stPoster"), layout: "climb", palette: "chalk", title: "" },
     { el: document.getElementById("spiralPoster"), layout: "spiral", palette: "cinnamon" },
   ];
 
@@ -1431,7 +1443,7 @@ const SHOP = {
           if ((w.username || "").toLowerCase() === u.toLowerCase()) name = w.username; else if ((b.username || "").toLowerCase() === u.toLowerCase()) name = b.username;
           out.push({ white: w.username || "", black: b.username || "", welo: +w.rating, belo: +b.rating, result, when: g.end_time * 1000, pool, opening: openingOf({ ECOUrl: g.eco || "" }) });
         }
-        progress(`Reading your games · ${++done} of ${archives.length} months`);
+        progress(`Reading your games · ${++done} of ${archives.length} months`, 0.06 + 0.94 * done / archives.length);
       }
     };
     await Promise.all(Array.from({ length: Math.min(5, archives.length) }, worker));
@@ -1445,7 +1457,7 @@ const SHOP = {
   async function loadLichess(u, progress) {
     const user = await getJSON(`https://lichess.org/api/user/${encodeURIComponent(u)}`);
     if (user.disabled || user.closed || user.tosViolation) throw notFound();
-    progress("Reading your rating history…");
+    progress("Reading your rating history…", 0.4);
     const hist = await getJSON(`https://lichess.org/api/user/${encodeURIComponent(u)}/rating-history`);
     const name = user.username || u, out = [], counts = {};
     for (const [k, v] of Object.entries(user.perfs || {})) if (LI_PERF[k]) counts[LI_PERF[k]] = v.games || 0;
@@ -1509,7 +1521,7 @@ const SHOP = {
   const USER_OK = /^[A-Za-z0-9_-]{2,30}$/;
   const priceOf = f => f === "print" ? SHOP.printPrice : SHOP.digitalPrice;
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const st = { open: false, step: 1, design: "climb", palette: "nightgreen", format: "print", pool: "", site: "cc", siteLocked: false, user: "", name: "" };
+  const st = { open: false, step: 1, design: "climb", palette: "chalk", format: "print", pool: "", site: "cc", siteLocked: false, user: "", name: "" };
   const keyOf = () => st.site + ":" + st.user.toLowerCase();
   const isReady = () => live.status === "ready" && live.key === keyOf();
   const PLACEHOLDER = GIFT ? "their_username" : "your_username";
@@ -1521,6 +1533,25 @@ const SHOP = {
     else { p.model = null; p.pool = "rapid"; p.player = st.user || PLACEHOLDER; }
     p.title = st.name || (isReady() ? live.name : st.user) || PLACEHOLDER;
     p.palette = st.palette;
+  }
+  // One loading bar, shown on whichever step they're on while their games come in
+  function setProgress(msg, pct) {
+    document.querySelectorAll("[data-load-text]").forEach(el => el.textContent = msg);
+    if (pct != null) {
+      const p = Math.max(0, Math.min(1, pct));
+      document.querySelectorAll(".st-pbar i").forEach(el => el.style.width = (p * 100).toFixed(1) + "%");
+      document.querySelectorAll("[data-load-pct]").forEach(el => el.textContent = Math.round(p * 100) + "%");
+    }
+  }
+  function loadingUI() {
+    const loading = live.status === "loading" && live.key === keyOf();
+    stEl.classList.toggle("is-loading", loading);
+    byId("stLoading").hidden = !loading || st.step === 4;
+    if (!loading && live.status === "ready") {
+      setProgress(GIFT ? "Their games are in." : "Your games are in.", 1);
+      if (st.step === 1) pickSub();
+      paintStudio();
+    }
   }
   function paintStudio() {
     if (!st.open) return;
@@ -1571,7 +1602,8 @@ const SHOP = {
     if (u.length >= 3) trackOnce("username_typed");
     hint(u && !USER_OK.test(u) ? "Usernames only use letters, numbers, hyphens and underscores." : "", u && !USER_OK.test(u));
   });
-  stName.addEventListener("input", () => trackOnce("name_typed"));
+  // The name appears on the poster as it's typed
+  stName.addEventListener("input", () => { trackOnce("name_typed"); st.name = stName.value.replace(/\s+/g, " ").trim().slice(0, 28); paintStudio(); });
   document.querySelectorAll('input[name="stSite"]').forEach(i => i.addEventListener("change", () => { st.siteLocked = true; track("site_changed", { site: i.value }); }));
   function setSite(s) { st.site = s; document.querySelectorAll('input[name="stSite"]').forEach(i => i.checked = i.value === s); }
   byId("stDetails").addEventListener("submit", e => { e.preventDefault(); next(); });
@@ -1583,8 +1615,9 @@ const SHOP = {
     if (live.key === key && live.status !== "error" && live.promise) return live.promise;
     Object.assign(live, { key, site: st.site, name: st.user, status: "loading", games: [], counts: {}, models: {}, pools: [], approx: false, fullPools: new Set(), err: "", full: 0, fullOf: 0 });
     const mine = key;
-    const progress = msg => { if (live.key === mine) byId("stLoadText").textContent = msg; };
-    progress(GIFT ? "Finding their games…" : "Finding your games…");
+    const progress = (msg, pct) => { if (live.key === mine) setProgress(msg, pct); };
+    progress(GIFT ? "Finding their games…" : "Finding your games…", 0.04);
+    loadingUI();
     live.promise = (async () => {
       const order = st.siteLocked ? [st.site] : [st.site, st.site === "cc" ? "li" : "cc"];
       let res = null, site = st.site, lastErr = null;
@@ -1601,7 +1634,8 @@ const SHOP = {
       st.pool = pools[0].pool;
       track("games_loaded", { site, games: pools[0].n });
       if (res.approx) fillLichess(live.key, st.pool);
-    })().catch(err => { if (live.key === mine) Object.assign(live, { status: "error", err: "network" }); });
+    })().catch(err => { if (live.key === mine) Object.assign(live, { status: "error", err: "network" }); })
+      .finally(() => { if (live.key === mine || !st.open) loadingUI(); });
     return live.promise;
   }
   // Swap the Lichess daily-rating preview for every single game once they've streamed in
@@ -1643,10 +1677,11 @@ const SHOP = {
     byId("stProg").style.width = n * 25 + "%";
     byId("stBack").style.visibility = n === 1 ? "hidden" : "visible";
     byId("stLoad").hidden = true; byId("stBadge").hidden = true;
+    loadingUI();
     byId("stBody").scrollTop = 0;
     setFoot();
     track("studio_step", { step: n });
-    if (n === 1) { pickSub(); const sel = minis.find(m => m.layout === st.design); if (sel) requestAnimationFrame(() => sel.btn.scrollIntoView({ block: "nearest", inline: "center" })); }
+    if (n === 1) { pickSub(); const sel = minis.find(m => m.layout === st.design); if (sel) requestAnimationFrame(() => { const box = sel.btn.parentElement; if (box.scrollWidth > box.clientWidth) box.scrollLeft = sel.btn.offsetLeft - (box.clientWidth - sel.btn.offsetWidth) / 2; }); }
     if (n === 3) { stUser.value = st.user; stName.value = st.name; setTimeout(() => (st.user ? stName : stUser).focus({ preventScroll: true }), 50); }
     if (n === 4) result();
     requestAnimationFrame(paintStudio);
@@ -1654,7 +1689,7 @@ const SHOP = {
   function pickSub() {
     const sub = byId("stPickSub");
     if (isReady()) sub.textContent = `Drawn from ${GIFT ? "their" : "your"} real games. Tap to choose.`;
-    else if (live.status === "loading" && live.key === keyOf()) sub.textContent = `Loading ${GIFT ? "their" : "your"} games: the designs redraw with them in a moment.`;
+    else if (live.status === "loading" && live.key === keyOf()) sub.textContent = `Once the bar fills, all three designs are drawn from ${GIFT ? "their" : "your"} own games.`;
     else sub.textContent = "Each one is drawn from every rated game. These use example games until you add a username.";
   }
   function next() {
