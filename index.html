@@ -396,7 +396,7 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
 
 
 <div class="notice" id="setupNotice" hidden><div class="inner">Shop setup: the buy buttons have no Stripe links yet. Add them in the SHOP settings at the top of the script.</div></div>
-<div class="thanks" id="thanks" hidden><div class="inner" id="thanksText">Thank you for your order. Your proof will arrive by email within 24 hours.</div></div>
+<div class="thanks" id="thanks" hidden><div class="inner" id="thanksText">Thank you! We’ll email your preview within a day.</div></div>
 
 <header>
   <div class="inner">
@@ -415,21 +415,21 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     <div class="inner">
       <div class="hero-copy">
         <span class="eyebrow" id="heroEyebrow">Every game counted</span>
-        <h1 id="heroTitle">Your chess story, <em>on your wall.</em></h1>
-        <p class="lede" id="heroLede">Every late-night blitz, every slump, the night it all clicked. Give us your Chess.com or Lichess username and we’ll turn your whole rated history into a print made for your wall.</p>
+        <h1 id="heroTitle">Your chess games, <em>on your wall.</em></h1>
+        <p class="lede" id="heroLede">Type your Chess.com or Lichess username. We turn every game you’ve played into a poster.</p>
         <form class="hero-try" id="heroTry" autocomplete="off" novalidate>
-          <label for="heroUser" id="heroUserLabel">Your Chess.com or Lichess username</label>
+          <label for="heroUser" id="heroUserLabel">Your username</label>
           <div class="hero-try-row">
             <input type="text" id="heroUser" placeholder="your_username" maxlength="30" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-describedby="heroSmall">
             <button type="submit" class="btn primary" id="heroCta">See my poster</button>
           </div>
         </form>
-        <p class="small" id="heroSmall">Free preview of your real poster, no sign-up. Prints <span data-price="print"></span>, files <span data-price="digital"></span>. You approve a proof before anything is printed.</p>
+        <p class="small" id="heroSmall">Free to try. Prints <span data-price="print"></span>, digital files <span data-price="digital"></span>.</p>
       </div>
       <div class="wall">
         <button type="button" class="frame" data-poster="0" aria-label="View this poster full size"><span class="mat"><canvas id="heroPoster" role="img" aria-label="Example poster showing a rating climbing from 681 to a peak of 1,600 over six years"></canvas></span></button>
-        <span class="chips-label">Try a colourway · tap the poster for full view</span>
-        <div class="chips" id="heroChips" role="radiogroup" aria-label="Colourway"></div>
+        <span class="chips-label">Try a colour · tap to enlarge</span>
+        <div class="chips" id="heroChips" role="radiogroup" aria-label="Colour"></div>
       </div>
     </div>
   </div>
@@ -438,21 +438,21 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     <div class="inner">
       <div class="section-head">
         <span class="eyebrow">Three designs</span>
-        <h2>Pick how your story <em>reads.</em></h2>
-        <p id="exampleNote">All three are drawn from every rated game in your history, nothing estimated. These examples use a sample player.</p>
+        <h2>Choose your <em>design.</em></h2>
+        <p id="exampleNote">Each one uses every game you’ve played. These are examples.</p>
       </div>
       <div class="designs">
         <div class="design">
           <div class="wall"><button type="button" class="frame" data-poster="1" aria-label="View The climb poster full size"><span class="mat"><canvas id="climbPoster" role="img" aria-label="The climb design: a rating line across the years with the peak marked"></canvas></span></button></div>
-          <div><h3>The climb</h3><p>Your rating across the years as one line, every game a faint point behind it, your peak marked with the date.</p><p class="example-caption" id="climbCaption" hidden></p><button type="button" class="viewlink" data-poster="1">View full size</button></div>
+          <div><h3>The climb</h3><p>Your rating over the years as one line, with your best day marked.</p><p class="example-caption" id="climbCaption" hidden></p><button type="button" class="viewlink" data-poster="1">Enlarge</button></div>
         </div>
         <div class="design">
           <div class="wall"><button type="button" class="frame" data-poster="2" aria-label="View the Every game poster full size"><span class="mat"><canvas id="gridPoster" role="img" aria-label="Every game design: one dot per game grouped by year, wins filled"></canvas></span></button></div>
-          <div><h3>Every game</h3><p>One dot for each game, year by year. Wins filled, losses hollow, and each year’s best rating ringed.</p><p class="example-caption" id="gridCaption" hidden></p><button type="button" class="viewlink" data-poster="2">View full size</button></div>
+          <div><h3>Every game</h3><p>One dot for every game, year by year. Wins are filled in.</p><p class="example-caption" id="gridCaption" hidden></p><button type="button" class="viewlink" data-poster="2">Enlarge</button></div>
         </div>
         <div class="design">
           <div class="wall"><button type="button" class="frame" data-poster="4" aria-label="View The spiral poster full size"><span class="mat"><canvas id="spiralPoster" role="img" aria-label="The spiral design: one turn around the circle per year, distance from the centre is rating"></canvas></span></button></div>
-          <div><h3>The spiral</h3><p>One turn of the circle for every year you’ve played. The further out, the higher your rating, so your journey spirals outwards as you improve.</p><p class="example-caption" id="spiralCaption">Example: a sample player’s 1,386 rapid games, 681 to a peak of 1,600</p><button type="button" class="viewlink" data-poster="4">View full size</button></div>
+          <div><h3>The spiral</h3><p>One circle for each year. The better you get, the further out it goes.</p><p class="example-caption" id="spiralCaption">Example: 1,386 games, rating 681 to 1,600</p><button type="button" class="viewlink" data-poster="4">Enlarge</button></div>
         </div>
       </div>
     </div>
@@ -462,13 +462,13 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     <div class="inner">
       <div class="section-head">
         <span class="eyebrow">Up close</span>
-        <h2>Sharp at <em>300 dpi.</em></h2>
-        <p>Every label is real type, crisp enough to read from across the room. Tap a detail to see it on the full poster.</p>
+        <h2>Sharp, <em>close up.</em></h2>
+        <p>Tap a detail to see it on the poster.</p>
       </div>
       <div class="closeups">
-        <button type="button" class="closeup" data-crop="peak"><canvas aria-hidden="true"></canvas><span>The peak, with the day you hit it</span></button>
-        <button type="button" class="closeup" data-crop="years"><canvas aria-hidden="true"></canvas><span>Each year’s best rating, ringed</span></button>
-        <button type="button" class="closeup" data-crop="stats"><canvas aria-hidden="true"></canvas><span>Your numbers, set in print type</span></button>
+        <button type="button" class="closeup" data-crop="peak"><canvas aria-hidden="true"></canvas><span>Your best rating and the date</span></button>
+        <button type="button" class="closeup" data-crop="years"><canvas aria-hidden="true"></canvas><span>Your best of each year</span></button>
+        <button type="button" class="closeup" data-crop="stats"><canvas aria-hidden="true"></canvas><span>Your numbers</span></button>
       </div>
     </div>
   </section>
@@ -477,15 +477,15 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     <div class="inner">
       <div class="section-head">
         <span class="eyebrow">On every poster</span>
-        <h2>The numbers that are <em>yours.</em></h2>
+        <h2>Your <em>numbers.</em></h2>
       </div>
       <div class="stats">
-        <div class="stat"><span class="k">Peak rating</span><span class="v">and the date you hit it</span></div>
-        <div class="stat"><span class="k">Games played</span><span class="v">in your main time control</span></div>
-        <div class="stat"><span class="k">Win rate</span><span class="v">across your whole history</span></div>
-        <div class="stat"><span class="k">Longest win streak</span><span class="v">your best run</span></div>
-        <div class="stat"><span class="k">Most played opening</span><span class="v">and how often</span></div>
-        <div class="stat"><span class="k">Best of each year</span><span class="v">on the Every game design</span></div>
+        <div class="stat"><span class="k">Best rating</span><span class="v">and the date</span></div>
+        <div class="stat"><span class="k">Games played</span><span class="v">all of them</span></div>
+        <div class="stat"><span class="k">Games won</span><span class="v">as a percentage</span></div>
+        <div class="stat"><span class="k">Longest winning run</span><span class="v">in a row</span></div>
+        <div class="stat"><span class="k">Favourite opening</span><span class="v">and how often</span></div>
+        <div class="stat"><span class="k">Best of each year</span><span class="v">year by year</span></div>
       </div>
     </div>
   </section>
@@ -493,13 +493,13 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
   <section class="alt" id="how">
     <div class="inner">
       <div class="section-head">
-        <span class="eyebrow">How ordering works</span>
-        <h2>Three steps, no <em>sign-up.</em></h2>
+        <span class="eyebrow">How it works</span>
+        <h2>Three <em>simple steps.</em></h2>
       </div>
       <div class="steps">
-        <div class="step"><span class="n">1</span><h3>Design</h3><p>Pick a design and colourway, type your username, and see your real poster in seconds. Then pay securely with Stripe.</p></div>
-        <div class="step"><span class="n">2</span><h3>Approve</h3><p>We email a proof within 24 hours. Want a different colourway or time control? Just reply.</p></div>
-        <div class="step"><span class="n">3</span><h3>Hang it</h3><p>Digital files arrive as soon as you approve. Prints are made to order and posted to you.</p></div>
+        <div class="step"><span class="n">1</span><h3>Create</h3><p>Pick a design and colour, type your username and see your poster.</p></div>
+        <div class="step"><span class="n">2</span><h3>Check</h3><p>We email you a preview within a day. Reply if you want changes.</p></div>
+        <div class="step"><span class="n">3</span><h3>Hang it</h3><p>We post your print, or email your file.</p></div>
       </div>
     </div>
   </section>
@@ -508,22 +508,22 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     <div class="inner">
       <div class="section-head">
         <span class="eyebrow">Prices</span>
-        <h2 id="makerTitle">See your real poster <em>first.</em></h2>
-        <p id="makerLede">Type your username and we draw your poster from your actual games in seconds. Free, no sign-up. You only pay if you love it.</p>
+        <h2 id="makerTitle">See it <em>first.</em></h2>
+        <p id="makerLede">Making your poster is free. You only pay if you like it.</p>
       </div>
       <div class="prices">
         <div class="price featured">
-          <span class="price-tag">Most chosen</span>
+          <span class="price-tag">Most popular</span>
           <h3>A3 art print</h3>
-          <div class="amount"><span data-price="print"></span><small>UK delivery included</small></div>
-          <ul><li>Matte art print, 297 × 420 mm, unframed</li><li>Proof emailed within 24 hours</li><li>Free reprint if it arrives damaged</li></ul>
+          <div class="amount"><span data-price="print"></span></div>
+          <ul><li>Large print, 30 × 42 cm, no frame</li><li>Free UK delivery</li><li>Damaged? We replace it free</li></ul>
           <button type="button" class="btn primary" data-format="print">Make my poster</button>
         </div>
         <div class="price">
-          <span class="price-tag">Print it anywhere</span>
+          <span class="price-tag">Print it yourself</span>
           <h3>Digital file</h3>
-          <div class="amount"><span data-price="digital"></span><small>one-off</small></div>
-          <ul><li>3508 × 4961 px PNG at 300 dpi</li><li>Prints sharply from A4 to A2</li><li>Works with any print shop, in any country</li></ul>
+          <div class="amount"><span data-price="digital"></span></div>
+          <ul><li>High-quality image, sent by email</li><li>Print it any size, A4 to A2</li><li>Works in any country</li></ul>
           <button type="button" class="btn ghost" data-format="digital">Make my file</button>
         </div>
       </div>
@@ -533,15 +533,15 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     <div class="inner">
       <div class="section-head">
         <span class="eyebrow">Questions</span>
-        <h2>Before you <em>order.</em></h2>
+        <h2>Common <em>questions.</em></h2>
       </div>
       <div class="faq">
-        <details><summary>Which sites do you support?</summary><p>Chess.com and Lichess. We read the public game history for the username you give us, so there’s nothing to log in to.</p></details>
-        <details><summary>Which rating goes on the poster?</summary><p>The time control you’ve played most, like rapid or blitz. If you’d rather show a different one, say so when you reply to your proof.</p></details>
-        <details><summary>How many games do I need?</summary><p>Around 50 rated games makes a good poster. Thousands of games work too: for very active players, each dot on the Every game design stands for a small batch of games, and the poster says so.</p></details>
-        <details><summary>Can I give one as a gift?</summary><p>Yes. You only need their username, since game histories are public. Put your own email at checkout and we’ll send the proof to you.</p></details>
-        <details><summary>Do you post outside the UK?</summary><p>Prints go to UK addresses for now. The digital file works anywhere, and any print shop can print it.</p></details>
-        <details><summary>What if something’s wrong with my print?</summary><p>Every poster is made to order, so we check the proof with you first. If a print arrives damaged or doesn’t match the approved proof, we’ll reprint it free.</p></details>
+        <details><summary>Which sites work?</summary><p>Chess.com and Lichess. You don’t need to log in.</p></details>
+        <details><summary>Which games are shown?</summary><p>The type you play most, like rapid or blitz. You can pick another one.</p></details>
+        <details><summary>How many games do I need?</summary><p>About 50 or more. Thousands is fine too.</p></details>
+        <details><summary>Can I give it as a gift?</summary><p>Yes. You only need their username. The preview comes to you, so it stays a surprise.</p></details>
+        <details><summary>Do you post abroad?</summary><p>Prints go to the UK only for now. The digital file works anywhere.</p></details>
+        <details><summary>What if something is wrong?</summary><p>We replace it free.</p></details>
       </div>
     </div>
   </section>
@@ -559,11 +559,11 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     <div class="st-inner">
       <!-- Step 1: design -->
       <div id="stPick">
-        <div class="st-head"><h2>Pick a <em>design.</em></h2><p class="st-sub" id="stPickSub">Each one is drawn from every rated game. Tap to choose.</p></div>
+        <div class="st-head"><h2>Pick a <em>design.</em></h2><p class="st-sub" id="stPickSub">Tap one to choose.</p></div>
         <div class="st-designs" role="radiogroup" aria-label="Design">
-          <button type="button" class="st-design" data-design="climb" role="radio" aria-checked="true"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>The climb</b><small>Your rating across the years as one line, peak marked.</small></button>
-          <button type="button" class="st-design" data-design="grid" role="radio" aria-checked="false"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>Every game</b><small>One dot per game, year by year. Wins filled.</small></button>
-          <button type="button" class="st-design" data-design="spiral" role="radio" aria-checked="false"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>The spiral</b><small>One turn per year. Higher rating, further out.</small></button>
+          <button type="button" class="st-design" data-design="climb" role="radio" aria-checked="true"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>The climb</b><small>Your rating as one line.</small></button>
+          <button type="button" class="st-design" data-design="grid" role="radio" aria-checked="false"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>Every game</b><small>One dot for every game.</small></button>
+          <button type="button" class="st-design" data-design="spiral" role="radio" aria-checked="false"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>The spiral</b><small>One circle for each year.</small></button>
         </div>
       </div>
 
@@ -576,12 +576,12 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
         </div>
 
         <div class="st-panel" data-panel="2">
-          <div class="st-head"><h2>Choose a <em>colourway.</em></h2><p class="st-sub">Tap one to see it on the poster.</p></div>
-          <div class="st-swatches" id="stSwatches" role="radiogroup" aria-label="Colourway"></div>
+          <div class="st-head"><h2>Choose a <em>colour.</em></h2></div>
+          <div class="st-swatches" id="stSwatches" role="radiogroup" aria-label="Colour"></div>
         </div>
 
         <form class="st-panel" data-panel="3" id="stDetails" autocomplete="off" novalidate>
-          <div class="st-head"><h2 id="stWhoTitle">Whose games <em>are these?</em></h2></div>
+          <div class="st-head"><h2 id="stWhoTitle">Your <em>details.</em></h2></div>
           <fieldset class="mf-field">
             <legend id="stSiteLabel">Where do you play?</legend>
             <div class="seg" role="radiogroup">
@@ -592,21 +592,21 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
           <div class="mf-field">
             <label for="stUser" id="stUserLabel">Your username</label>
             <input type="text" id="stUser" class="st-input mono" placeholder="your_username" maxlength="30" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="stUserHint">
-            <p class="mf-hint" id="stUserHint">Exactly as it appears on your profile.</p>
+            <p class="mf-hint" id="stUserHint">As it appears on the site.</p>
           </div>
           <div class="mf-field">
             <label for="stName"><span id="stNameLabel">Name on the poster</span> <span class="opt-tag">optional</span></label>
             <input type="text" id="stName" class="st-input display" placeholder="e.g. Florin Popescu" maxlength="28" autocomplete="name" enterkeyhint="go">
-            <p class="mf-hint" id="stNameHint">Leave it blank to use the username. Add a name and the username goes underneath.</p>
+            <p class="mf-hint" id="stNameHint">Leave blank to show your username.</p>
           </div>
-          <p class="mf-hint gift-note" id="stGiftNote" hidden>Buying as a gift? Game histories are public, so you only need their username. The proof comes to your email, so the surprise is safe.</p>
+          <p class="mf-hint gift-note" id="stGiftNote" hidden>A gift? The preview comes to you, so it stays a surprise.</p>
           <button type="submit" hidden></button>
         </form>
 
         <div class="st-panel" data-panel="4">
           <div class="st-head"><h2 id="stResultTitle">Here’s your <em>journey.</em></h2><p class="st-facts" id="stFacts"></p></div>
           <fieldset class="mf-field" id="stPoolField" hidden>
-            <legend>Time control</legend>
+            <legend>Game type</legend>
             <div class="seg wrap" id="stPools" role="radiogroup" aria-label="Time control"></div>
           </fieldset>
           <fieldset class="mf-field">
@@ -618,29 +618,29 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
             </div>
           </fieldset>
           <fieldset class="mf-field">
-            <legend>Colourway</legend>
-            <div class="st-swatches small" id="stSwatches2" role="radiogroup" aria-label="Colourway"></div>
+            <legend>Colour</legend>
+            <div class="st-swatches small" id="stSwatches2" role="radiogroup" aria-label="Colour"></div>
           </fieldset>
           <fieldset class="mf-field">
-            <legend>Format</legend>
+            <legend>Choose</legend>
             <div class="opts two">
-              <label class="opt"><input type="radio" name="stFormat" value="print" checked><span><b>A3 print · <span data-price="print"></span></b><small>Matte art print, 297 × 420 mm, unframed. UK delivery included.</small></span></label>
-              <label class="opt"><input type="radio" name="stFormat" value="digital"><span><b>Digital file · <span data-price="digital"></span></b><small>3508 × 4961 px PNG at 300 dpi. Prints from A4 to A2.</small></span></label>
+              <label class="opt"><input type="radio" name="stFormat" value="print" checked><span><b>Print · <span data-price="print"></span></b><small>30 × 42 cm, free UK delivery.</small></span></label>
+              <label class="opt"><input type="radio" name="stFormat" value="digital"><span><b>Digital file · <span data-price="digital"></span></b><small>Image file by email. Print any size.</small></span></label>
             </div>
           </fieldset>
           <p class="delivery" id="deliveryLine" hidden></p>
           <div class="trust">
-            <p class="trust-secure"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><rect x="2.5" y="7" width="11" height="7.5" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Secure checkout by Stripe</p>
+            <p class="trust-secure"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><rect x="2.5" y="7" width="11" height="7.5" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Safe payment by Stripe</p>
             <ul class="pay-methods" aria-label="Payment methods"><li>Visa</li><li>Mastercard</li><li>Amex</li><li>Apple Pay</li><li>Google Pay</li></ul>
-            <p class="guarantee">We email a proof within 24 hours and nothing is printed until you approve it. <b>Free reprint</b> if it arrives damaged.</p>
+            <p class="guarantee">You check a preview before we print. <b>Damaged? We replace it free.</b></p>
           </div>
           <form class="st-save" id="stSave" novalidate>
-            <p class="st-save-title"><b>Not ready to order?</b> We’ll email you this poster so you can come back to it.</p>
+            <p class="st-save-title"><b>Not ready?</b> We’ll email you this poster.</p>
             <div class="st-save-row">
               <input type="email" id="stEmail" class="st-input" placeholder="you@example.com" autocomplete="email" aria-label="Your email address" enterkeyhint="send">
               <button type="submit" class="btn ghost" id="stSaveGo">Email it to me</button>
             </div>
-            <p class="mf-hint" id="stSaveHint">Just your poster, and one reminder before the Christmas cut-off. No newsletter.</p>
+            <p class="mf-hint" id="stSaveHint">No spam. One reminder before Christmas.</p>
           </form>
         </div>
       </div>
@@ -658,20 +658,20 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
       <p class="st-wait-detail" data-load-text>Finding your games…</p>
       <span class="st-pbar" aria-hidden="true"><i></i></span>
       <p class="st-wait-pct" data-load-pct>0%</p>
-      <p class="st-wait-note" id="stWaitNote">We read your public games straight from Chess.com or Lichess. Nothing to log in to.</p>
+      <p class="st-wait-note" id="stWaitNote">This takes a few seconds.</p>
       <button type="button" class="st-wait-cancel" id="stWaitCancel">Change username</button>
     </div>
   </div>
 
   <div class="st-foot">
     <span class="st-foot-note" id="stFootNote"></span>
-    <button type="button" class="btn primary" id="stGo">Next: colourway</button>
+    <button type="button" class="btn primary" id="stGo">Next: colour</button>
   </div>
 </div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Poster full view" hidden>
   <div class="lb-bar">
-    <span class="lb-hint" id="lbHint">Tap the poster to zoom in</span>
+    <span class="lb-hint" id="lbHint">Tap to zoom</span>
     <button type="button" class="lb-close" id="lbClose">Close</button>
   </div>
   <div class="lb-scroll" id="lbScroll"><canvas id="lbCanvas" role="img" aria-label="Poster at full resolution"></canvas></div>
@@ -679,7 +679,7 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
 
 <div class="consent" id="consent" role="region" aria-label="Cookie choice" hidden>
   <div class="inner">
-    <p>We use cookies to see how people use this site and to measure our ads. Nothing loads until you choose.</p>
+    <p>We use cookies to improve this site. Is that OK?</p>
     <div class="consent-actions">
       <button type="button" class="btn ghost" id="consentNo">Decline</button>
       <button type="button" class="btn primary" id="consentYes">Accept</button>
@@ -690,7 +690,7 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
 <footer>
   <div class="inner">
     <span><em>Every game counted.</em> Chess Journey · Questions: <span id="contactEmail"></span></span>
-    <span>Not affiliated with Chess.com or Lichess. <button type="button" class="linkbtn" id="cookieSettings">Cookie settings</button></span>
+    <span>Not part of Chess.com or Lichess. <button type="button" class="linkbtn" id="cookieSettings">Cookie settings</button></span>
   </div>
 </footer>
 
@@ -1359,10 +1359,10 @@ const SHOP = {
       Object.assign(posters[2], { model: bullet, pool: "bullet", title: d.player });
       posters[1].el.setAttribute("aria-label", `The climb design for Hikaru: ${fmt(blitz.n)} blitz games, peak ${fmt(blitz.ratings[blitz.peakI])}`);
       posters[2].el.setAttribute("aria-label", `Every game design for Hikaru: ${fmt(bullet.n)} bullet games, peak ${fmt(bullet.ratings[bullet.peakI])}`);
-      const cap = (el, M2, pool) => { el.textContent = `Example: Hikaru’s ${fmt(M2.n)} ${pool} games, peak ${fmt(M2.ratings[M2.peakI])}`; el.hidden = false; };
+      const cap = (el, M2, pool) => { el.textContent = `Example: Hikaru, ${fmt(M2.n)} ${pool} games`; el.hidden = false; };
       cap(document.getElementById("climbCaption"), blitz, "blitz");
       cap(document.getElementById("gridCaption"), bullet, "bullet");
-      document.getElementById("exampleNote").textContent = "All three are drawn from every rated game in a history, nothing estimated. The first two use Hikaru Nakamura’s public Chess.com games (he isn’t affiliated with this shop); the spiral shows a sample player who improved over six years, which is where it shines.";
+      document.getElementById("exampleNote").textContent = "Each one uses every game played. The first two show Hikaru Nakamura’s public games (he isn’t linked to this shop).";
       paint(posters[1]); paint(posters[2]);
       bigCache.clear(); paintCloseups();
     }).catch(() => { /* keep the sample player examples */ });
@@ -1410,20 +1410,20 @@ const SHOP = {
   })();
   if (GIFT) {
     const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
-    set("heroEyebrow", "For the one who plays");
-    set("heroTitle", "Give them every game they’ve <em>ever played.</em>");
-    set("heroLede", "This year, give the gift that makes them go quiet for a second. Every game they’ve ever played, on a print made for their wall. All you need is their Chess.com or Lichess username: no asking, no spoilers.");
+    set("heroEyebrow", "A gift for a chess player");
+    set("heroTitle", "Their chess games, <em>on their wall.</em>");
+    set("heroLede", "Type their Chess.com or Lichess username. We turn every game they’ve played into a poster. No need to ask them.");
     set("heroCta", "See their poster");
-    set("heroUserLabel", "Their Chess.com or Lichess username");
+    set("heroUserLabel", "Their username");
     document.getElementById("heroUser").placeholder = "their_username";
     document.getElementById("stUser").placeholder = "their_username";
-    set("makerTitle", "See their real poster <em>first.</em>");
-    set("makerLede", "Type their username and we draw the poster from their actual games in seconds. Free, no sign-up, and they’ll never know you looked.");
-    set("heroSmall", `Free preview of their real poster, no sign-up. Prints ${SHOP.printPrice}, files ${SHOP.digitalPrice}. You approve a proof before anything is printed.`);
-    set("stWhoTitle", "Who’s it <em>for?</em>");
+    set("makerTitle", "See it <em>first.</em>");
+    set("makerLede", "Making the poster is free, and they won’t know. You only pay if you like it.");
+    set("heroSmall", `Free to try. Prints ${SHOP.printPrice}, digital files ${SHOP.digitalPrice}.`);
+    set("stWhoTitle", "Who is it <em>for?</em>");
     set("stSiteLabel", "Where do they play?");
     set("stUserLabel", "Their username");
-    set("stUserHint", "Exactly as it appears on their profile.");
+    set("stUserHint", "As it appears on the site.");
     set("stNameLabel", "Their name on the poster");
     document.getElementById("stGiftNote").hidden = false;
     document.title = "Chess Journey · The chess gift";
@@ -1469,7 +1469,7 @@ const SHOP = {
           if ((w.username || "").toLowerCase() === u.toLowerCase()) name = w.username; else if ((b.username || "").toLowerCase() === u.toLowerCase()) name = b.username;
           out.push({ white: w.username || "", black: b.username || "", welo: +w.rating, belo: +b.rating, result, when: g.end_time * 1000, pool, opening: openingOf({ ECOUrl: g.eco || "" }) });
         }
-        progress(`Reading your games · ${++done} of ${archives.length} months`, 0.06 + 0.94 * done / archives.length);
+        progress(`${++done} of ${archives.length} months read`, 0.06 + 0.94 * done / archives.length);
       }
     };
     await Promise.all(Array.from({ length: Math.min(5, archives.length) }, worker));
@@ -1483,7 +1483,7 @@ const SHOP = {
   async function loadLichess(u, progress) {
     const user = await getJSON(`https://lichess.org/api/user/${encodeURIComponent(u)}`);
     if (user.disabled || user.closed || user.tosViolation) throw notFound();
-    progress("Reading your rating history…", 0.4);
+    progress("Reading your ratings…", 0.4);
     const hist = await getJSON(`https://lichess.org/api/user/${encodeURIComponent(u)}/rating-history`);
     const name = user.username || u, out = [], counts = {};
     for (const [k, v] of Object.entries(user.perfs || {})) if (LI_PERF[k]) counts[LI_PERF[k]] = v.games || 0;
@@ -1543,7 +1543,7 @@ const SHOP = {
 
   // ---------- Studio: the step-by-step maker ----------
   const DESIGN_NAME = { climb: "The climb", grid: "Every game", spiral: "The spiral" };
-  const STEP_NAMES = ["Design", "Colourway", "Details", "Your poster"];
+  const STEP_NAMES = ["Design", "Colour", "Details", "Your poster"];
   const USER_OK = /^[A-Za-z0-9_-]{2,30}$/;
   const priceOf = f => f === "print" ? SHOP.printPrice : SHOP.digitalPrice;
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1617,13 +1617,13 @@ const SHOP = {
   function setFormat(f) { st.format = f; document.querySelectorAll('input[name="stFormat"]').forEach(i => i.checked = i.value === f); }
 
   const stUser = byId("stUser"), stName = byId("stName"), stHint = byId("stUserHint");
-  const USER_HINT = GIFT ? "Exactly as it appears on their profile." : "Exactly as it appears on your profile.";
+  const USER_HINT = "As it appears on the site.";
   function hint(msg, err) { stHint.textContent = msg || USER_HINT; stHint.classList.toggle("err", !!err); stUser.setAttribute("aria-invalid", err ? "true" : "false"); }
   const cleanUser = v => (v || "").trim().replace(/^@/, "").replace(/^https?:\/\/(www\.)?(chess\.com\/member|lichess\.org\/@)\//i, "");
   stUser.addEventListener("input", () => {
     const u = cleanUser(stUser.value);
     if (u.length >= 3) trackOnce("username_typed");
-    hint(u && !USER_OK.test(u) ? "Usernames only use letters, numbers, hyphens and underscores." : "", u && !USER_OK.test(u));
+    hint(u && !USER_OK.test(u) ? "Use only letters, numbers, - and _." : "", u && !USER_OK.test(u));
   });
   // The name appears on the poster as it's typed
   stName.addEventListener("input", () => { trackOnce("name_typed"); st.name = stName.value.replace(/\s+/g, " ").trim().slice(0, 28); paintStudio(); });
@@ -1680,13 +1680,13 @@ const SHOP = {
   function setFoot() {
     const note = byId("stFootNote");
     stGo.disabled = false;
-    if (st.step === 1) { stGo.textContent = "Next: colourway"; note.textContent = `${DESIGN_NAME[st.design]} selected`; }
-    if (st.step === 2) { stGo.textContent = GIFT ? "Next: their username" : "Next: your username"; note.textContent = `${DESIGN_NAME[st.design]} · ${PALETTES[st.palette].name}`; }
-    if (st.step === 3) { stGo.textContent = GIFT ? "Show their poster" : "Show my poster"; note.textContent = "Free preview, no sign-up"; }
+    if (st.step === 1) { stGo.textContent = "Next: colour"; note.textContent = DESIGN_NAME[st.design]; }
+    if (st.step === 2) { stGo.textContent = "Next: details"; note.textContent = `${DESIGN_NAME[st.design]} · ${PALETTES[st.palette].name}`; }
+    if (st.step === 3) { stGo.textContent = GIFT ? "Show their poster" : "Show my poster"; note.textContent = "Free"; }
     if (st.step === 4) {
-      stGo.textContent = `Continue to payment · ${priceOf(st.format)}`;
-      note.textContent = `${DESIGN_NAME[st.design]} · ${PALETTES[st.palette].name} · ${st.format === "print" ? "A3 print" : "Digital file"}`;
-      const d = byId("deliveryLine"), txt = st.format === "print" ? [SHOP.printDelivery, SHOP.christmasCutoff].filter(Boolean).join(" ") : "Your file arrives by email, usually the same day you approve the proof.";
+      stGo.textContent = `Buy now · ${priceOf(st.format)}`;
+      note.textContent = `${DESIGN_NAME[st.design]} · ${PALETTES[st.palette].name} · ${st.format === "print" ? "Print" : "Digital file"}`;
+      const d = byId("deliveryLine"), txt = st.format === "print" ? [SHOP.printDelivery, SHOP.christmasCutoff].filter(Boolean).join(" ") : "Sent to you by email.";
       d.textContent = txt; d.hidden = !txt;
     }
   }
@@ -1711,15 +1711,15 @@ const SHOP = {
   }
   function pickSub() {
     const sub = byId("stPickSub");
-    if (isReady()) sub.textContent = `Drawn from ${GIFT ? "their" : "your"} real games. Tap to choose.`;
-    else if (live.status === "loading" && live.key === keyOf()) sub.textContent = `Once the bar fills, all three designs are drawn from ${GIFT ? "their" : "your"} own games.`;
-    else sub.textContent = "Each one is drawn from every rated game. These use example games until you add a username.";
+    if (isReady()) sub.textContent = `Made from ${GIFT ? "their" : "your"} games. Tap one to choose.`;
+    else if (live.status === "loading" && live.key === keyOf()) sub.textContent = "Tap one to choose.";
+    else sub.textContent = "Tap one to choose. These are examples.";
   }
   function next() {
     if (st.step === 1 || st.step === 2) return go(st.step + 1);
     if (st.step === 3) {
       const u = cleanUser(stUser.value);
-      if (!USER_OK.test(u)) { hint(u ? "Usernames only use letters, numbers, hyphens and underscores." : (GIFT ? "Add their username so we can find their games." : "Add your username so we can find your games."), true); stUser.focus(); track("details_blocked"); return; }
+      if (!USER_OK.test(u)) { hint(u ? "Use only letters, numbers, - and _." : "Please type a username.", true); stUser.focus(); track("details_blocked"); return; }
       st.user = u; st.name = stName.value.replace(/\s+/g, " ").trim();
       st.site = document.querySelector('input[name="stSite"]:checked').value;
       track("details_done", { site: st.site, named: st.name ? "yes" : "no" });
@@ -1742,21 +1742,21 @@ const SHOP = {
     go(3);
     const who = SITES[live.site || st.site];
     hint(live.err === "few"
-      ? `We found ${st.user} on ${who}, but fewer than 10 rated games in any time control. The poster needs a few more games first.`
-      : st.siteLocked ? `We couldn’t find “${st.user}” on ${who}. Check the spelling, or switch site above.` : `We couldn’t find “${st.user}” on Chess.com or Lichess. Check the spelling, exactly as on the profile.`, true);
+      ? `${st.user} needs at least 10 games for a poster.`
+      : st.siteLocked ? `We can’t find “${st.user}” on ${who}. Check the spelling or try the other site.` : `We can’t find “${st.user}”. Please check the spelling.`, true);
   }
 
   // The full-screen loading page between steps: real progress underneath, a few lines to read on top
   const WAIT_LINES = GIFT
-    ? ["Loading their chess data…", "Finding every rated game…", "Tracing their rating, year by year…", "Finding their peak…", "Counting wins, draws and losses…", "Drawing their poster…"]
-    : ["Loading your chess data…", "Finding every rated game…", "Tracing your rating, year by year…", "Finding your peak…", "Counting wins, draws and losses…", "Drawing your poster…"];
+    ? ["Loading their chess games…", "Finding every game…", "Counting wins and losses…", "Finding their best rating…", "Drawing their poster…"]
+    : ["Loading your chess games…", "Finding every game…", "Counting wins and losses…", "Finding your best rating…", "Drawing your poster…"];
   let waitRun = 0;
   async function waitThen(target) {
     const run = ++waitRun, waitEl = byId("stWait"), title = byId("stWaitTitle");
     startLoad();
     if (!live.promise) return go(target);
     waitEl.hidden = false; stGo.disabled = true;
-    byId("stProgLabel").textContent = GIFT ? "Loading their games" : "Loading your games";
+    byId("stProgLabel").textContent = "Loading";
     byId("stBack").style.visibility = "hidden";
     let k = 0;
     title.textContent = WAIT_LINES[0];
@@ -1773,7 +1773,7 @@ const SHOP = {
     clearInterval(spin);
     if (run !== waitRun || !st.open) return;
     if (live.status === "ready") {
-      setProgress(GIFT ? "Their games are in." : "Your games are in.", 1);
+      setProgress("Done.", 1);
       title.textContent = WAIT_LINES[WAIT_LINES.length - 1];
       await wait(700);
       if (run !== waitRun || !st.open) return;
@@ -1807,20 +1807,20 @@ const SHOP = {
     const el = byId("stFacts"), badge = byId("stBadge"), title = byId("stResultTitle");
     const whose = GIFT ? "their" : "your";
     if (!isReady()) {
-      title.innerHTML = `Here’s the <em>idea.</em>`;
-      el.innerHTML = `We couldn’t reach ${SITES[st.site]} just now, so this preview uses example games.<small>You can still order: we draw ${whose} poster from ${whose} real games for the proof.</small>`;
-      badge.hidden = false; badge.textContent = "Preview with example games";
+      title.innerHTML = `Your <em>poster.</em>`;
+      el.innerHTML = `${SITES[st.site]} isn’t answering right now, so this shows example games.<small>You can still order. We’ll use ${whose} real games.</small>`;
+      badge.hidden = false; badge.textContent = "Example games";
       return;
     }
     const m = modelFor(st.pool), p = live.pools.find(x => x.pool === st.pool) || { n: m.n };
-    title.innerHTML = `Here’s ${GIFT ? "their" : "your"} <em>journey.</em>`;
+    title.innerHTML = `${GIFT ? "Their" : "Your"} <em>poster.</em>`;
     if (approxFor(st.pool)) {
-      el.innerHTML = `<b>${fmt(p.n)}</b> ${POOL_LABEL[st.pool].toLowerCase()} games on Lichess · best rating <b>${fmt(m.ratings[m.peakI])}</b>` +
-        `<small>${live.full && live.filling === st.pool ? `Adding every game: ${fmt(live.full)} of ${fmt(live.fullOf || p.n)}…` : "Drawn from daily ratings while every game loads."} The print uses every game.</small>`;
-      badge.hidden = false; badge.textContent = "Preview from daily ratings";
+      el.innerHTML = `<b>${fmt(p.n)}</b> ${POOL_LABEL[st.pool].toLowerCase()} games · best rating <b>${fmt(m.ratings[m.peakI])}</b>` +
+        `<small>${live.full && live.filling === st.pool ? `Adding games: ${fmt(live.full)} of ${fmt(live.fullOf || p.n)}…` : "Adding all your games…"}</small>`;
+      badge.hidden = false; badge.textContent = "Rough preview";
     } else {
-      el.innerHTML = `<b>${fmt(m.n)}</b> ${POOL_LABEL[st.pool].toLowerCase()} games on ${SITES[live.site]} · peak <b>${fmt(m.ratings[m.peakI])}</b> on ${day(m.games[m.peakI].when)}` +
-        `<small>Drawn from every rated game. Tap the poster to see it full size.</small>`;
+      el.innerHTML = `<b>${fmt(m.n)}</b> ${POOL_LABEL[st.pool].toLowerCase()} games · best rating <b>${fmt(m.ratings[m.peakI])}</b>` +
+        `<small>Tap the poster to enlarge.</small>`;
       badge.hidden = true;
     }
   }
@@ -1846,11 +1846,11 @@ const SHOP = {
       }),
     }).then(r => { if (!r.ok) throw new Error(r.status); })
       .then(() => {
-        byId("stSave").innerHTML = `<p class="st-saved"><b>On its way.</b> We’ll email ${GIFT ? "their" : "your"} poster to ${email.replace(/[<>&"]/g, "")} within 24 hours.</p>`;
+        byId("stSave").innerHTML = `<p class="st-saved"><b>Thank you.</b> We’ll email it to ${email.replace(/[<>&"]/g, "")} within a day.</p>`;
         track("preview_emailed", { source: SOURCE });
         if (consented && window.fbq) { try { fbq("track", "Lead", { content_name: "poster_preview" }); } catch (err) {} }
       })
-      .catch(() => { btn.disabled = false; btn.textContent = "Email it to me"; h.textContent = `That didn’t send. Try again, or email us at ${SHOP.email}.`; h.classList.add("err"); });
+      .catch(() => { btn.disabled = false; btn.textContent = "Email it to me"; h.textContent = `That didn’t work. Please try again.`; h.classList.add("err"); });
   });
 
   // Stripe keeps this reference on the order: source--design--colourway--pool--site--username--Name_On_Poster
@@ -1864,7 +1864,7 @@ const SHOP = {
     const m = isReady() ? modelFor(st.pool) : null;
     try { localStorage.setItem("cj-order", JSON.stringify({ u: st.user, n: st.name, design: st.design, palette: st.palette, f, value, price: priceOf(f), source: SOURCE, gift: GIFT, ref, site, pool: st.pool, games: m ? m.n : "", at: Date.now() })); } catch (err) {}
     track("checkout_clicked", { format: f, design: st.design, colour: st.palette, source: SOURCE, real: m ? "yes" : "no" });
-    stGo.disabled = true; stGo.textContent = "Opening secure checkout…";
+    stGo.disabled = true; stGo.textContent = "Opening payment…";
     if (consented && window.fbq) { try { fbq("track", "InitiateCheckout", { currency: "GBP", value, content_name: f }); } catch (err) {} }
     location.href = `${link}${link.includes("?") ? "&" : "?"}client_reference_id=${encodeURIComponent(ref)}`;
   }
@@ -1967,7 +1967,7 @@ const SHOP = {
       if (!o.tracked && consented && window.fbq) {
         try { fbq("track", "Purchase", { currency: "GBP", value: o.value || 0, content_name: o.f }); o.tracked = true; localStorage.setItem("cj-order", JSON.stringify(o)); } catch (err) {}
       }
-      document.getElementById("thanksText").textContent = `Thank you! We’ve got your order for ${who}: ${DESIGN_NAME[o.design] || "The climb"}, ${PALETTES[o.palette].name}. Your proof will arrive by email within 24 hours.`;
+      document.getElementById("thanksText").textContent = `Thank you! We’ve got your order for ${who}. We’ll email your preview within a day.`;
     }
     document.getElementById("thanks").hidden = false;
   }
