@@ -677,7 +677,7 @@ footer .inner { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: 
     e.preventDefault();
     const u = input.value.trim().replace(/^@/, "");
     if (u && !/^[A-Za-z0-9_-]{2,30}$/.test(u)) { input.setAttribute("aria-invalid", "true"); input.focus(); return; }
-    location.href = "/?from=lichess" + (u ? "&u=" + encodeURIComponent(u) : "") + "#order";
+    location.href = "/?from=lichess&d=climb&site=li" + (u ? "&u=" + encodeURIComponent(u) : "") + "#make";
   });
   let t; new ResizeObserver(() => { clearTimeout(t); t = setTimeout(draw, 60); }).observe(canvas);
   draw();

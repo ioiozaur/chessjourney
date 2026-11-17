@@ -249,6 +249,125 @@ section.alt { background: var(--card); border-block: 1px solid var(--line); }
 
 footer { border-top: 1px solid var(--line); }
 footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-size: 14px; color: var(--muted); }
+
+/* ---------- Studio: full-screen, step-by-step maker ---------- */
+.price .btn { cursor: pointer; font-family: inherit; }
+.studio { position: fixed; inset: 0; z-index: 45; background: var(--page); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.st-bar {
+  position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px));
+  background: var(--page); border-bottom: 1px solid var(--line);
+}
+.st-back, .st-close { background: none; border: 0; font: inherit; font-weight: 600; font-size: 15px; color: var(--ink); cursor: pointer; padding: 10px 2px; }
+.st-back { justify-self: start; }
+.st-close { justify-self: end; font-size: 20px; line-height: 1; padding: 10px 6px; }
+.st-back:focus-visible, .st-close:focus-visible, .st-design:focus-visible, .sw input:focus-visible + span, .seg input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.st-prog-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.st-prog { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: transparent; }
+.st-prog i { display: block; height: 100%; width: 25%; background: var(--accent); transition: width .3s; }
+.st-body { overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.st-inner { max-width: 1160px; margin: 0 auto; padding: 28px max(16px, env(safe-area-inset-right, 0px)) 36px max(16px, env(safe-area-inset-left, 0px)); }
+.st-head { display: grid; gap: 6px; margin-bottom: 20px; }
+.st-head h2 { font-size: clamp(28px, 3.6vw, 42px); }
+.st-sub { color: var(--muted); }
+.st-facts { font-size: 16px; color: var(--ink); }
+.st-facts b { font-weight: 600; }
+.st-facts small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+.st-designs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.st-design {
+  display: grid; gap: 6px; align-content: start; text-align: left; font: inherit; color: var(--ink); cursor: pointer; min-width: 0;
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 12px 16px; transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.st-design:hover { transform: translateY(-2px); }
+.st-design[aria-checked="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.st-design b { font-family: var(--font-display); font-weight: 600; font-size: 22px; margin-top: 8px; }
+.st-design small { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.st-mini { display: grid; justify-items: center; background: linear-gradient(180deg, var(--wall) 0%, var(--wall) 82%, var(--wall-shade) 100%); border-radius: 10px; padding: 22px 18px 18px; }
+.st-mini .frame { max-width: min(260px, calc((100dvh - 330px) / 1.36)); padding: 7px; }
+@media (max-width: 760px) {
+  .st-designs { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 74%; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin-inline: -16px; padding: 2px 16px 10px; scrollbar-width: none; }
+  .st-designs::-webkit-scrollbar { display: none; }
+  .st-design { scroll-snap-align: center; }
+  .st-mini .frame { max-width: min(230px, calc((100dvh - 380px) / 1.36)); }
+}
+
+.st-stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 40px; align-items: start; }
+.st-wall {
+  position: sticky; top: 0; display: grid; justify-items: center; align-content: center;
+  background: linear-gradient(180deg, var(--wall) 0%, var(--wall) 82%, var(--wall-shade) 100%); border-radius: 14px; padding: 32px 28px; min-height: 100%;
+}
+.st-wall .frame { max-width: min(470px, calc((100dvh - 250px) / 1.36)); }
+.st-badge { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.st-load { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 14px; padding: 24px; text-align: center; background: rgba(220, 216, 208, .82); border-radius: 14px; font-weight: 500; }
+.st-spin { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(0,0,0,.12); border-top-color: var(--ink); animation: stspin .8s linear infinite; }
+@keyframes stspin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .st-spin { animation-duration: 2.4s; } }
+.st-panel { display: grid; gap: 20px; align-content: start; min-width: 0; }
+.st-panel .st-head { margin-bottom: 0; }
+
+.st-swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.st-swatches.small { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; }
+.sw { position: relative; display: block; min-width: 0; }
+.sw input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.sw span { display: grid; gap: 6px; justify-items: center; font-size: 13px; cursor: pointer; text-align: center; line-height: 1.25; }
+.sw i { display: block; width: 100%; aspect-ratio: 1 / 1.2; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.14); position: relative; overflow: hidden; }
+.sw i::after { content: ""; position: absolute; left: 18%; right: 18%; top: 58%; height: 3px; border-radius: 2px; background: var(--sw-accent); transform: rotate(-14deg); }
+.sw input:checked + span i { box-shadow: 0 0 0 2px var(--page), 0 0 0 4px var(--ink); }
+.sw input:checked + span { font-weight: 600; }
+.st-swatches.small .sw span em { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; padding: 4px; border: 1.5px solid var(--line); border-radius: 11px; background: var(--card); }
+.seg.wrap { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.seg label { position: relative; min-width: 0; }
+.seg input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.seg span { display: block; text-align: center; padding: 10px 8px; border-radius: 8px; font-weight: 500; font-size: 15px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seg span small { display: block; font-size: 12px; font-weight: 400; color: inherit; opacity: .75; }
+.seg input:checked + span { background: var(--ink); color: var(--page); }
+.st-input { width: 100%; font-size: 18px; padding: 13px 14px; border: 1.5px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); font-family: var(--font-body); }
+.st-input.mono { font-family: var(--font-mono); }
+.st-input.display { font-family: var(--font-display); font-size: 20px; }
+.st-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--ink); }
+.st-input[aria-invalid="true"] { border-color: var(--notice); }
+
+.st-save { border-top: 1px solid var(--line); padding-top: 20px; display: grid; gap: 10px; }
+.st-save-title { font-size: 15px; }
+.st-save-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.st-save-row .st-input { flex: 1 1 200px; min-width: 0; font-size: 16px; padding: 12px 14px; }
+.st-save-row .btn { flex: 0 0 auto; cursor: pointer; font-family: inherit; padding: 12px 16px; }
+.st-saved { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font-size: 15px; }
+
+.st-foot {
+  display: flex; align-items: center; justify-content: flex-end; gap: 16px;
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 12px) max(16px, env(safe-area-inset-left, 0px));
+  background: var(--card); border-top: 1px solid var(--line); box-shadow: 0 -10px 30px -22px rgba(0,0,0,.4);
+}
+.st-foot-note { font-size: 14px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st-foot .btn { min-width: 280px; font-size: 17px; padding: 15px 22px; cursor: pointer; font-family: inherit; }
+.st-foot .btn:disabled { opacity: .6; cursor: progress; }
+
+@media (max-width: 860px) {
+  .st-inner { padding-top: 16px; padding-bottom: 24px; }
+  .st-head { margin-bottom: 14px; }
+  .st-head h2 { font-size: 28px; }
+  .st-stage { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .st-wall { position: relative; padding: 18px 16px; min-height: 0; }
+  .st-wall .frame { max-width: min(300px, calc((100dvh - 380px) / 1.36)); min-width: 150px; padding: 7px; }
+  .st-swatches { gap: 10px; }
+  .st-swatches .sw span { font-size: 12px; }
+  .st-foot-note { display: none; }
+  .st-foot .btn { flex: 1 1 auto; min-width: 0; }
+}
+/* On the colour step the swatches sit right under the poster, so both fit one phone screen */
+@media (max-width: 860px) {
+  .st-stage.on-2 .st-wall { padding: 12px; }
+  .st-stage.on-2 .st-wall .frame { max-width: min(300px, calc((100dvh - 440px) / 1.36)); }
+  .st-stage.on-2 .st-sub { display: none; }
+  .st-swatches:not(.small) .sw i { aspect-ratio: 1 / .62; }
+  .st-swatches:not(.small) { gap: 8px 8px; }
+  /* The details step is a form: give it the screen, the poster waits on the next step */
+  .st-stage.on-3 .st-wall { display: none; }
+}
 </style>
 </head>
 <body>
@@ -283,7 +402,7 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
             <button type="submit" class="btn primary" id="heroCta">See my poster</button>
           </div>
         </form>
-        <p class="small" id="heroSmall">Free preview, no sign-up. Prints <span data-price="print"></span>, files <span data-price="digital"></span>. You approve a proof before anything is printed.</p>
+        <p class="small" id="heroSmall">Free preview of your real poster, no sign-up. Prints <span data-price="print"></span>, files <span data-price="digital"></span>. You approve a proof before anything is printed.</p>
       </div>
       <div class="wall">
         <button type="button" class="frame" data-poster="0" aria-label="View this poster full size"><span class="mat"><canvas id="heroPoster" role="img" aria-label="Example poster showing a rating climbing from 681 to a peak of 1,600 over six years"></canvas></span></button>
@@ -356,7 +475,7 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
         <h2>Three steps, no <em>sign-up.</em></h2>
       </div>
       <div class="steps">
-        <div class="step"><span class="n">1</span><h3>Design</h3><p>Type your username, pick a design and colourway, and see a preview. Then pay securely with Stripe.</p></div>
+        <div class="step"><span class="n">1</span><h3>Design</h3><p>Pick a design and colourway, type your username, and see your real poster in seconds. Then pay securely with Stripe.</p></div>
         <div class="step"><span class="n">2</span><h3>Approve</h3><p>We email a proof within 24 hours. Want a different colourway or time control? Just reply.</p></div>
         <div class="step"><span class="n">3</span><h3>Hang it</h3><p>Digital files arrive as soon as you approve. Prints are made to order and posted to you.</p></div>
       </div>
@@ -366,61 +485,28 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
   <section id="order">
     <div class="inner">
       <div class="section-head">
-        <span class="eyebrow">Make yours</span>
-        <h2 id="makerTitle">See it with your <em>name.</em></h2>
-        <p id="makerLede">Type your username and try the designs. The preview uses example games; your poster is drawn from your real history once you order.</p>
+        <span class="eyebrow">Prices</span>
+        <h2 id="makerTitle">See your real poster <em>first.</em></h2>
+        <p id="makerLede">Type your username and we draw your poster from your actual games in seconds. Free, no sign-up. You only pay if you love it.</p>
       </div>
-      <div class="maker">
-        <div class="wall maker-wall">
-          <div class="maker-stick">
-            <button type="button" class="frame" data-poster="3" aria-label="View your preview full size"><span class="mat"><canvas id="makerPoster" role="img" aria-label="Preview of your poster"></canvas></span></button>
-            <span class="chips-label">Preview with example games · tap for full view</span>
-          </div>
+      <div class="prices">
+        <div class="price featured">
+          <span class="price-tag">Most chosen</span>
+          <h3>A3 art print</h3>
+          <div class="amount"><span data-price="print"></span><small>UK delivery included</small></div>
+          <ul><li>Matte art print, 297 × 420 mm, unframed</li><li>Proof emailed within 24 hours</li><li>Free reprint if it arrives damaged</li></ul>
+          <button type="button" class="btn primary" data-format="print">Make my poster</button>
         </div>
-        <form class="maker-form" id="maker" autocomplete="off" novalidate>
-          <div class="mf-field">
-            <label for="cfgUser" id="userLabel">Chess.com or Lichess username</label>
-            <input type="text" id="cfgUser" placeholder="your_username" maxlength="30" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="userHint">
-            <p class="mf-hint" id="userHint">Exactly as it appears on your profile. We use it to find your games.</p>
-          </div>
-          <div class="mf-field">
-            <label for="cfgName"><span id="nameLabel">Name on the poster</span> <span class="opt-tag">optional</span></label>
-            <input type="text" id="cfgName" placeholder="e.g. Florin Popescu" maxlength="28" autocomplete="name">
-            <p class="mf-hint gift-note" id="giftNote" hidden>Buying as a gift? The proof comes to your email, so the surprise is safe, and a print can go straight to them: just enter their address at checkout.</p>
-            <p class="mf-hint" id="nameHint">Leave it blank to use your username. If you add a name, your username goes underneath it. We’ll confirm the exact spelling in your proof email.</p>
-          </div>
-          <fieldset class="mf-field">
-            <legend>Design</legend>
-            <div class="opts three">
-              <label class="opt"><input type="radio" name="cfgDesign" id="cfg-climb" value="climb" checked><span><b>The climb</b><small>Your rating across the years</small></span></label>
-              <label class="opt"><input type="radio" name="cfgDesign" id="cfg-grid" value="grid"><span><b>Every game</b><small>One dot per game, year by year</small></span></label>
-              <label class="opt"><input type="radio" name="cfgDesign" id="cfg-spiral" value="spiral"><span><b>The spiral</b><small>One turn per year, rating outwards</small></span></label>
-            </div>
-          </fieldset>
-          <fieldset class="mf-field">
-            <legend>Colourway</legend>
-            <div class="chips left" id="cfgChips"></div>
-          </fieldset>
-          <fieldset class="mf-field">
-            <legend>Format</legend>
-            <div class="opts two">
-              <label class="opt"><input type="radio" name="cfgFormat" id="cfg-print" value="print" checked><span><b>A3 print · <span data-price="print"></span></b><small>Matte art print, 297 × 420 mm, unframed. UK delivery included.</small></span></label>
-              <label class="opt"><input type="radio" name="cfgFormat" id="cfg-digital" value="digital"><span><b>Digital file · <span data-price="digital"></span></b><small>3508 × 4961 px PNG at 300 dpi. Prints sharply from A4 to A2.</small></span></label>
-            </div>
-          </fieldset>
-          <p class="delivery" id="deliveryLine" hidden></p>
-          <button type="submit" class="btn primary mf-go" id="cfgGo">Continue to payment</button>
-          <div class="trust">
-            <p class="trust-secure"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><rect x="2.5" y="7" width="11" height="7.5" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Secure checkout by Stripe</p>
-            <ul class="pay-methods" aria-label="Payment methods"><li>Visa</li><li>Mastercard</li><li>Amex</li><li>Apple Pay</li><li>Google Pay</li></ul>
-            <p class="guarantee"><b>Free reprint</b> if your print arrives damaged or doesn’t match the proof you approved.</p>
-            <p class="mf-hint">We email a proof within 24 hours, and nothing is printed until you approve it.</p>
-          </div>
-        </form>
+        <div class="price">
+          <span class="price-tag">Print it anywhere</span>
+          <h3>Digital file</h3>
+          <div class="amount"><span data-price="digital"></span><small>one-off</small></div>
+          <ul><li>3508 × 4961 px PNG at 300 dpi</li><li>Prints sharply from A4 to A2</li><li>Works with any print shop, in any country</li></ul>
+          <button type="button" class="btn ghost" data-format="digital">Make my file</button>
+        </div>
       </div>
     </div>
   </section>
-
   <section class="alt" id="faq">
     <div class="inner">
       <div class="section-head">
@@ -438,6 +524,112 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
     </div>
   </section>
 </main>
+
+<div class="studio" id="studio" role="dialog" aria-modal="true" aria-labelledby="stProgLabel" hidden>
+  <div class="st-bar">
+    <button type="button" class="st-back" id="stBack">← Back</button>
+    <span class="st-prog-label" id="stProgLabel">1 of 4 · Design</span>
+    <button type="button" class="st-close" id="stClose" aria-label="Close the poster maker">✕</button>
+    <span class="st-prog"><i id="stProg"></i></span>
+  </div>
+
+  <div class="st-body" id="stBody">
+    <div class="st-inner">
+      <!-- Step 1: design -->
+      <div id="stPick">
+        <div class="st-head"><h2>Pick a <em>design.</em></h2><p class="st-sub" id="stPickSub">Each one is drawn from every rated game. Tap to choose.</p></div>
+        <div class="st-designs" role="radiogroup" aria-label="Design">
+          <button type="button" class="st-design" data-design="climb" role="radio" aria-checked="true"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>The climb</b><small>Your rating across the years as one line, peak marked.</small></button>
+          <button type="button" class="st-design" data-design="grid" role="radio" aria-checked="false"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>Every game</b><small>One dot per game, year by year. Wins filled.</small></button>
+          <button type="button" class="st-design" data-design="spiral" role="radio" aria-checked="false"><span class="st-mini"><span class="frame"><span class="mat"><canvas aria-hidden="true"></canvas></span></span></span><b>The spiral</b><small>One turn per year. Higher rating, further out.</small></button>
+        </div>
+      </div>
+
+      <!-- Steps 2–4: the poster on the wall, options beside it -->
+      <div class="st-stage" id="stStage" hidden>
+        <div class="st-wall">
+          <button type="button" class="frame" data-poster="3" aria-label="View the poster full size"><span class="mat"><canvas id="stPoster" role="img" aria-label="Your poster preview"></canvas></span></button>
+          <span class="st-badge" id="stBadge" hidden></span>
+          <div class="st-load" id="stLoad" hidden><span class="st-spin" aria-hidden="true"></span><span id="stLoadText" role="status">Finding your games…</span></div>
+        </div>
+
+        <div class="st-panel" data-panel="2">
+          <div class="st-head"><h2>Choose a <em>colourway.</em></h2><p class="st-sub">Tap one to see it on the poster.</p></div>
+          <div class="st-swatches" id="stSwatches" role="radiogroup" aria-label="Colourway"></div>
+        </div>
+
+        <form class="st-panel" data-panel="3" id="stDetails" autocomplete="off" novalidate>
+          <div class="st-head"><h2 id="stWhoTitle">Whose games <em>are these?</em></h2></div>
+          <fieldset class="mf-field">
+            <legend id="stSiteLabel">Where do you play?</legend>
+            <div class="seg" role="radiogroup">
+              <label><input type="radio" name="stSite" value="cc" checked><span>Chess.com</span></label>
+              <label><input type="radio" name="stSite" value="li"><span>Lichess</span></label>
+            </div>
+          </fieldset>
+          <div class="mf-field">
+            <label for="stUser" id="stUserLabel">Your username</label>
+            <input type="text" id="stUser" class="st-input mono" placeholder="your_username" maxlength="30" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="stUserHint">
+            <p class="mf-hint" id="stUserHint">Exactly as it appears on your profile.</p>
+          </div>
+          <div class="mf-field">
+            <label for="stName"><span id="stNameLabel">Name on the poster</span> <span class="opt-tag">optional</span></label>
+            <input type="text" id="stName" class="st-input display" placeholder="e.g. Florin Popescu" maxlength="28" autocomplete="name" enterkeyhint="go">
+            <p class="mf-hint" id="stNameHint">Leave it blank to use the username. Add a name and the username goes underneath.</p>
+          </div>
+          <p class="mf-hint gift-note" id="stGiftNote" hidden>Buying as a gift? Game histories are public, so you only need their username. The proof comes to your email, so the surprise is safe.</p>
+          <button type="submit" hidden></button>
+        </form>
+
+        <div class="st-panel" data-panel="4">
+          <div class="st-head"><h2 id="stResultTitle">Here’s your <em>journey.</em></h2><p class="st-facts" id="stFacts"></p></div>
+          <fieldset class="mf-field" id="stPoolField" hidden>
+            <legend>Time control</legend>
+            <div class="seg wrap" id="stPools" role="radiogroup" aria-label="Time control"></div>
+          </fieldset>
+          <fieldset class="mf-field">
+            <legend>Design</legend>
+            <div class="seg" id="stDesignSeg" role="radiogroup" aria-label="Design">
+              <label><input type="radio" name="stDesign" value="climb" checked><span>Climb</span></label>
+              <label><input type="radio" name="stDesign" value="grid"><span>Every game</span></label>
+              <label><input type="radio" name="stDesign" value="spiral"><span>Spiral</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="mf-field">
+            <legend>Colourway</legend>
+            <div class="st-swatches small" id="stSwatches2" role="radiogroup" aria-label="Colourway"></div>
+          </fieldset>
+          <fieldset class="mf-field">
+            <legend>Format</legend>
+            <div class="opts two">
+              <label class="opt"><input type="radio" name="stFormat" value="print" checked><span><b>A3 print · <span data-price="print"></span></b><small>Matte art print, 297 × 420 mm, unframed. UK delivery included.</small></span></label>
+              <label class="opt"><input type="radio" name="stFormat" value="digital"><span><b>Digital file · <span data-price="digital"></span></b><small>3508 × 4961 px PNG at 300 dpi. Prints from A4 to A2.</small></span></label>
+            </div>
+          </fieldset>
+          <p class="delivery" id="deliveryLine" hidden></p>
+          <div class="trust">
+            <p class="trust-secure"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><rect x="2.5" y="7" width="11" height="7.5" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Secure checkout by Stripe</p>
+            <ul class="pay-methods" aria-label="Payment methods"><li>Visa</li><li>Mastercard</li><li>Amex</li><li>Apple Pay</li><li>Google Pay</li></ul>
+            <p class="guarantee">We email a proof within 24 hours and nothing is printed until you approve it. <b>Free reprint</b> if it arrives damaged.</p>
+          </div>
+          <form class="st-save" id="stSave" novalidate>
+            <p class="st-save-title"><b>Not ready to order?</b> We’ll email you this poster so you can come back to it.</p>
+            <div class="st-save-row">
+              <input type="email" id="stEmail" class="st-input" placeholder="you@example.com" autocomplete="email" aria-label="Your email address" enterkeyhint="send">
+              <button type="submit" class="btn ghost" id="stSaveGo">Email it to me</button>
+            </div>
+            <p class="mf-hint" id="stSaveHint">Just your poster, and one reminder before the Christmas cut-off. No newsletter.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="st-foot">
+    <span class="st-foot-note" id="stFootNote"></span>
+    <button type="button" class="btn primary" id="stGo">Next: colourway</button>
+  </div>
+</div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Poster full view" hidden>
   <div class="lb-bar">
@@ -1095,7 +1287,7 @@ const SHOP = {
     { el: document.getElementById("heroPoster"), layout: "climb", palette: "nightgreen" },
     { el: document.getElementById("climbPoster"), layout: "climb", palette: "chalk" },
     { el: document.getElementById("gridPoster"), layout: "grid", palette: "helvetia" },
-    { el: document.getElementById("makerPoster"), layout: "climb", palette: "nightgreen", title: "" },
+    { el: document.getElementById("stPoster"), layout: "climb", palette: "nightgreen", title: "" },
     { el: document.getElementById("spiralPoster"), layout: "spiral", palette: "cinnamon" },
   ];
 
@@ -1137,7 +1329,7 @@ const SHOP = {
       bigCache.clear(); paintCloseups();
     }).catch(() => { /* keep the sample player examples */ });
   }
-  const paintAll = () => { posters.forEach(paint); if (typeof paintCloseups === "function" && bigCache) { bigCache.clear(); paintCloseups(); } };
+  const paintAll = () => { posters.forEach(paint); if (typeof paintStudio === "function") paintStudio(); if (typeof paintCloseups === "function" && bigCache) { bigCache.clear(); paintCloseups(); } };
 
   const chips = document.getElementById("heroChips");
   OFFERED.forEach(key => {
@@ -1149,8 +1341,7 @@ const SHOP = {
   });
   chips.addEventListener("change", e => {
     posters[0].palette = e.target.value; paint(posters[0]); track("hero_colour_changed");
-    const twin = document.getElementById("cfg-" + e.target.value);
-    if (twin) { twin.checked = true; posters[3].palette = e.target.value; paint(posters[3]); }
+    setPalette(e.target.value);
   });
 
   // ---------- Traffic source, kept for 30 days in this browser ----------
@@ -1187,135 +1378,478 @@ const SHOP = {
     set("heroCta", "See their poster");
     set("heroUserLabel", "Their Chess.com or Lichess username");
     document.getElementById("heroUser").placeholder = "their_username";
-    document.getElementById("cfgUser").placeholder = "their_username";
-    set("makerTitle", "See it with their <em>name.</em>");
-    set("makerLede", "Type their username and try the designs. The preview uses example games; the real poster is drawn from their history once you order.");
-    set("userLabel", "Their Chess.com or Lichess username");
-    set("heroSmall", `Free preview, no sign-up. Prints ${SHOP.printPrice}, files ${SHOP.digitalPrice}. You approve a proof before anything is printed.`);
-    set("userHint", "Exactly as it appears on their profile. We use it to find their games.");
-    set("nameHint", "Leave it blank to use their username. If you add a name, their username goes underneath it. We’ll confirm the exact spelling in your proof email.");
-    set("nameLabel", "Their name on the poster");
-    document.getElementById("giftNote").hidden = false;
+    document.getElementById("stUser").placeholder = "their_username";
+    set("makerTitle", "See their real poster <em>first.</em>");
+    set("makerLede", "Type their username and we draw the poster from their actual games in seconds. Free, no sign-up, and they’ll never know you looked.");
+    set("heroSmall", `Free preview of their real poster, no sign-up. Prints ${SHOP.printPrice}, files ${SHOP.digitalPrice}. You approve a proof before anything is printed.`);
+    set("stWhoTitle", "Who’s it <em>for?</em>");
+    set("stSiteLabel", "Where do they play?");
+    set("stUserLabel", "Their username");
+    set("stUserHint", "Exactly as it appears on their profile.");
+    set("stNameLabel", "Their name on the poster");
+    document.getElementById("stGiftNote").hidden = false;
     document.title = "Chess Journey · The chess gift";
   }
   track("visit", { source: SOURCE });
 
-  // ---------- Poster maker and checkout ----------
-  const maker = posters[3];
+  // ---------- Live games: the visitor's real history, straight from the public APIs ----------
+  const byId = id => document.getElementById(id);
+  const SITES = { cc: "Chess.com", li: "Lichess" };
+  const live = { key: "", site: "", name: "", status: "idle", games: [], counts: {}, models: {}, pools: [], approx: false, fullPools: new Set(), err: "", full: 0, fullOf: 0, promise: null };
+  const approxFor = pool => live.site === "li" && !live.fullPools.has(pool);
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const notFound = () => Object.assign(new Error("notfound"), { code: 404 });
+  async function getJSON(url) {
+    for (let a = 0; a < 4; a++) {
+      const r = await fetch(url, { headers: { Accept: "application/json" } });
+      if (r.status === 429) { await wait(1500 * (a + 1)); continue; }
+      if (r.status === 404 || r.status === 410) throw notFound();
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    }
+    throw new Error("busy");
+  }
+
+  // Chess.com: one request per month of games, five at a time
+  const CC_DRAW = new Set(["agreed", "repetition", "stalemate", "insufficient", "50move", "timevsinsufficient"]);
+  async function loadChessCom(u, progress) {
+    const { archives = [] } = await getJSON(`https://api.chess.com/pub/player/${encodeURIComponent(u.toLowerCase())}/games/archives`);
+    const out = [];
+    let next = 0, done = 0, failed = 0, name = u;
+    const worker = async () => {
+      while (next < archives.length) {
+        const url = archives[next++];
+        let data = null;
+        try { data = await getJSON(url); } catch (err) { failed++; }
+        for (const g of (data && data.games) || []) {
+          if (!g.rated || g.rules !== "chess") continue;
+          const pool = { bullet: "bullet", blitz: "blitz", rapid: "rapid", daily: "daily" }[g.time_class];
+          if (!pool) continue;
+          const w = g.white || {}, b = g.black || {};
+          const result = w.result === "win" ? "1-0" : b.result === "win" ? "0-1" : CC_DRAW.has(w.result) ? "1/2-1/2" : null;
+          if (!result) continue;
+          if ((w.username || "").toLowerCase() === u.toLowerCase()) name = w.username; else if ((b.username || "").toLowerCase() === u.toLowerCase()) name = b.username;
+          out.push({ white: w.username || "", black: b.username || "", welo: +w.rating, belo: +b.rating, result, when: g.end_time * 1000, pool, opening: openingOf({ ECOUrl: g.eco || "" }) });
+        }
+        progress(`Reading your games · ${++done} of ${archives.length} months`);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(5, archives.length) }, worker));
+    if (failed > Math.max(2, archives.length * 0.1)) throw new Error("busy");
+    return { name, games: out, approx: false };
+  }
+
+  // Lichess: the daily rating history comes back instantly; every game streams in behind it
+  const LI_POOL = { Bullet: "bullet", Blitz: "blitz", Rapid: "rapid", Classical: "classical", Correspondence: "daily" };
+  const LI_PERF = { bullet: "bullet", blitz: "blitz", rapid: "rapid", classical: "classical", correspondence: "daily" };
+  async function loadLichess(u, progress) {
+    const user = await getJSON(`https://lichess.org/api/user/${encodeURIComponent(u)}`);
+    if (user.disabled || user.closed || user.tosViolation) throw notFound();
+    progress("Reading your rating history…");
+    const hist = await getJSON(`https://lichess.org/api/user/${encodeURIComponent(u)}/rating-history`);
+    const name = user.username || u, out = [], counts = {};
+    for (const [k, v] of Object.entries(user.perfs || {})) if (LI_PERF[k]) counts[LI_PERF[k]] = v.games || 0;
+    for (const h of hist || []) {
+      const pool = LI_POOL[h.name];
+      if (!pool) continue;
+      let prev = null;
+      for (const [y, mo, d, r] of h.points || []) {
+        const result = prev == null || r === prev ? "1/2-1/2" : r > prev ? "1-0" : "0-1";
+        out.push({ white: name, black: "-", welo: r, belo: NaN, result, when: Date.UTC(y, mo, d, 12), pool, opening: "" });
+        prev = r;
+      }
+    }
+    return { name, games: out, counts, approx: true };
+  }
+  async function streamLichessGames(u, pool, onCount) {
+    const perf = pool === "daily" ? "correspondence" : pool;
+    const r = await fetch(`https://lichess.org/api/games/user/${encodeURIComponent(u)}?rated=true&perfType=${perf}&moves=false&opening=true`, { headers: { Accept: "application/x-ndjson" } });
+    if (!r.ok || !r.body) throw new Error("http " + r.status);
+    const reader = r.body.getReader(), dec = new TextDecoder(), out = [];
+    let buf = "";
+    const take = line => {
+      if (!line.trim()) return;
+      let g; try { g = JSON.parse(line); } catch (err) { return; }
+      if (["aborted", "noStart", "unknownFinish"].includes(g.status)) return;
+      const w = (g.players || {}).white || {}, b = (g.players || {}).black || {};
+      out.push({ white: (w.user || {}).name || "-", black: (b.user || {}).name || "-", welo: +w.rating, belo: +b.rating,
+                 result: g.winner === "white" ? "1-0" : g.winner === "black" ? "0-1" : "1/2-1/2",
+                 when: g.createdAt, pool, opening: openingOf({ Opening: (g.opening || {}).name || "" }) });
+    };
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let k;
+      while ((k = buf.indexOf("\n")) >= 0) { take(buf.slice(0, k)); buf = buf.slice(k + 1); }
+      onCount(out.length);
+    }
+    take(buf);
+    return out;
+  }
+
+  function poolsOf(games, name, counts) {
+    const n = {};
+    const me = name.toLowerCase();
+    for (const g of games) if (g.white.toLowerCase() === me || g.black.toLowerCase() === me) n[g.pool] = (n[g.pool] || 0) + 1;
+    return Object.keys(n).filter(p => n[p] >= 10).map(p => ({ pool: p, n: counts && counts[p] ? counts[p] : n[p] })).sort((a, b) => b.n - a.n);
+  }
+  function modelFor(pool) {
+    if (live.models[pool]) return live.models[pool];
+    const keep = { all: state.all, player: state.player, pool: state.pool };
+    state.all = live.games; state.player = live.name; state.pool = pool;
+    const m = model();
+    Object.assign(state, keep);
+    return (live.models[pool] = m);
+  }
+
+  // ---------- Studio: the step-by-step maker ----------
   const DESIGN_NAME = { climb: "The climb", grid: "Every game", spiral: "The spiral" };
-  const cfgChips = document.getElementById("cfgChips");
-  OFFERED.forEach(key => {
-    const P = PALETTES[key];
-    const label = document.createElement("label");
-    label.className = "chip";
-    label.innerHTML = `<input type="radio" name="cfgPalette" id="cfg-${key}" value="${key}" ${key === maker.palette ? "checked" : ""}><span><i style="background:linear-gradient(135deg, ${P.bg} 50%, ${P.accent} 50%)"></i>${P.name}</span>`;
-    cfgChips.appendChild(label);
-  });
-
-  const userInput = document.getElementById("cfgUser"), nameInput = document.getElementById("cfgName"), userHint = document.getElementById("userHint"), goBtn = document.getElementById("cfgGo");
-  const USER_HINT = GIFT ? "Exactly as it appears on their profile. We use it to find their games." : "Exactly as it appears on your profile. We use it to find your games.";
-  const cleanName = () => nameInput.value.replace(/\s+/g, " ").trim();
-  // Stripe references only allow letters, numbers, hyphens and underscores
-  const refName = n => n.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9 -]/g, "").trim().replace(/\s+/g, "_").slice(0, 40);
-  function syncTitle() {
-    const u = cleanUser(), n = cleanName();
-    maker.player = u;
-    maker.title = n || u;
-    paint(maker);
-  }
+  const STEP_NAMES = ["Design", "Colourway", "Details", "Your poster"];
   const USER_OK = /^[A-Za-z0-9_-]{2,30}$/;
-  const cleanUser = () => userInput.value.trim().replace(/^@/, "");
-  const format = () => document.querySelector('input[name="cfgFormat"]:checked').value;
   const priceOf = f => f === "print" ? SHOP.printPrice : SHOP.digitalPrice;
-  function setHint(msg, err) { userHint.textContent = msg; userHint.classList.toggle("err", !!err); userInput.setAttribute("aria-invalid", err ? "true" : "false"); }
-  const deliveryLine = document.getElementById("deliveryLine");
-  function refreshGo() {
-    const f = format();
-    goBtn.textContent = `Continue to payment · ${priceOf(f)}`;
-    const note = f === "print" ? [SHOP.printDelivery, SHOP.christmasCutoff].filter(Boolean).join(" ") : "Your file arrives by email, usually the same day you approve the proof.";
-    deliveryLine.textContent = note;
-    deliveryLine.hidden = !note;
+  const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const st = { open: false, step: 1, design: "climb", palette: "nightgreen", format: "print", pool: "", site: "cc", siteLocked: false, user: "", name: "" };
+  const keyOf = () => st.site + ":" + st.user.toLowerCase();
+  const isReady = () => live.status === "ready" && live.key === keyOf();
+  const PLACEHOLDER = GIFT ? "their_username" : "your_username";
+  const stPoster = posters[3];
+  const minis = [...document.querySelectorAll(".st-design")].map(btn => ({ el: btn.querySelector("canvas"), layout: btn.dataset.design, btn }));
+
+  function dress(p) {
+    if (isReady() && st.pool) { p.model = modelFor(st.pool); p.pool = st.pool; p.player = live.name; }
+    else { p.model = null; p.pool = "rapid"; p.player = st.user || PLACEHOLDER; }
+    p.title = st.name || (isReady() ? live.name : st.user) || PLACEHOLDER;
+    p.palette = st.palette;
+  }
+  function paintStudio() {
+    if (!st.open) return;
+    if (st.step === 1) minis.forEach(m => { dress(m); paint(m); });
+    else { dress(stPoster); stPoster.layout = st.design; paint(stPoster); }
+    stPoster.el.setAttribute("aria-label", `${DESIGN_NAME[st.design]} poster in ${PALETTES[st.palette].name}${isReady() ? ` for ${live.name}` : ", example games"}`);
   }
 
-  userInput.addEventListener("input", () => {
-    const u = cleanUser();
-    if (u.length >= 3) trackOnce("username_typed");
-    if (u && !USER_OK.test(u)) setHint("Usernames only use letters, numbers, hyphens and underscores.", true);
-    else setHint(USER_HINT, false);
-    syncTitle();
-  });
-  nameInput.addEventListener("input", () => { trackOnce("name_typed"); syncTitle(); });
+  // Colour swatches, a big set for step 2 and a compact set for step 4
+  function swatches(boxId, name) {
+    const box = byId(boxId);
+    OFFERED.forEach(key => {
+      const P = PALETTES[key], l = document.createElement("label");
+      l.className = "sw";
+      l.innerHTML = `<input type="radio" name="${name}" value="${key}"><span><i style="background:${P.bg};--sw-accent:${P.accent}"></i><em>${P.name}</em></span>`;
+      box.appendChild(l);
+    });
+    box.addEventListener("change", e => setPalette(e.target.value, true));
+  }
+  swatches("stSwatches", "stPal"); swatches("stSwatches2", "stPal2");
+  function setPalette(key, user) {
+    if (!PALETTES[key]) return;
+    st.palette = key;
+    document.querySelectorAll('input[name="stPal"], input[name="stPal2"]').forEach(i => i.checked = i.value === key);
+    if (user) track("colour_changed", { colour: key });
+    paintStudio(); setFoot();
+  }
+  function setDesign(d, user) {
+    if (!DESIGN_NAME[d]) return;
+    st.design = d;
+    minis.forEach(m => m.btn.setAttribute("aria-checked", m.layout === d ? "true" : "false"));
+    document.querySelectorAll('input[name="stDesign"]').forEach(i => i.checked = i.value === d);
+    if (user) track("design_changed", { design: d });
+    paintStudio(); setFoot();
+  }
+  minis.forEach(m => m.btn.addEventListener("click", () => setDesign(m.layout, true)));
+  minis.forEach(m => m.btn.addEventListener("dblclick", () => go(2)));
+  byId("stDesignSeg").addEventListener("change", e => setDesign(e.target.value, true));
+  document.querySelectorAll('input[name="stFormat"]').forEach(i => i.addEventListener("change", () => { st.format = i.value; track("format_changed", { format: i.value }); setFoot(); }));
+  function setFormat(f) { st.format = f; document.querySelectorAll('input[name="stFormat"]').forEach(i => i.checked = i.value === f); }
 
-  const heroUser = document.getElementById("heroUser");
+  const stUser = byId("stUser"), stName = byId("stName"), stHint = byId("stUserHint");
+  const USER_HINT = GIFT ? "Exactly as it appears on their profile." : "Exactly as it appears on your profile.";
+  function hint(msg, err) { stHint.textContent = msg || USER_HINT; stHint.classList.toggle("err", !!err); stUser.setAttribute("aria-invalid", err ? "true" : "false"); }
+  const cleanUser = v => (v || "").trim().replace(/^@/, "").replace(/^https?:\/\/(www\.)?(chess\.com\/member|lichess\.org\/@)\//i, "");
+  stUser.addEventListener("input", () => {
+    const u = cleanUser(stUser.value);
+    if (u.length >= 3) trackOnce("username_typed");
+    hint(u && !USER_OK.test(u) ? "Usernames only use letters, numbers, hyphens and underscores." : "", u && !USER_OK.test(u));
+  });
+  stName.addEventListener("input", () => trackOnce("name_typed"));
+  document.querySelectorAll('input[name="stSite"]').forEach(i => i.addEventListener("change", () => { st.siteLocked = true; track("site_changed", { site: i.value }); }));
+  function setSite(s) { st.site = s; document.querySelectorAll('input[name="stSite"]').forEach(i => i.checked = i.value === s); }
+  byId("stDetails").addEventListener("submit", e => { e.preventDefault(); next(); });
+
+  // Fetch the games, falling back to the other site when the username isn't on the first one
+  function startLoad() {
+    if (!USER_OK.test(st.user)) return null;
+    const key = keyOf();
+    if (live.key === key && live.status !== "error" && live.promise) return live.promise;
+    Object.assign(live, { key, site: st.site, name: st.user, status: "loading", games: [], counts: {}, models: {}, pools: [], approx: false, fullPools: new Set(), err: "", full: 0, fullOf: 0 });
+    const mine = key;
+    const progress = msg => { if (live.key === mine) byId("stLoadText").textContent = msg; };
+    progress(GIFT ? "Finding their games…" : "Finding your games…");
+    live.promise = (async () => {
+      const order = st.siteLocked ? [st.site] : [st.site, st.site === "cc" ? "li" : "cc"];
+      let res = null, site = st.site, lastErr = null;
+      for (const s of order) {
+        try { res = s === "cc" ? await loadChessCom(st.user, progress) : await loadLichess(st.user, progress); site = s; break; }
+        catch (err) { lastErr = err; if (err.code !== 404) break; }
+      }
+      if (live.key !== mine) return;
+      if (!res) { Object.assign(live, { status: "error", err: lastErr && lastErr.code === 404 ? "notfound" : "network" }); track("games_failed", { reason: live.err }); return; }
+      const pools = poolsOf(res.games, res.name, res.counts);
+      if (!pools.length) { Object.assign(live, { status: "error", err: "few", site }); track("games_failed", { reason: "few" }); return; }
+      if (site !== st.site) setSite(site);
+      Object.assign(live, { key: site + ":" + st.user.toLowerCase(), site, name: res.name, games: res.games, counts: res.counts || {}, pools, approx: res.approx, status: "ready" });
+      st.pool = pools[0].pool;
+      track("games_loaded", { site, games: pools[0].n });
+      if (res.approx) fillLichess(live.key, st.pool);
+    })().catch(err => { if (live.key === mine) Object.assign(live, { status: "error", err: "network" }); });
+    return live.promise;
+  }
+  // Swap the Lichess daily-rating preview for every single game once they've streamed in
+  async function fillLichess(key, pool) {
+    if (live.fullPools.has(pool) || live.filling === pool) return;
+    live.filling = pool; live.full = 0; live.fullOf = live.counts[pool] || 0;
+    try {
+      const games = await streamLichessGames(live.name, pool, n => { if (live.key === key) { live.full = n; if (st.step === 4) facts(); } });
+      if (live.key !== key || games.length < 10) return;
+      live.games = live.games.filter(g => g.pool !== pool).concat(games);
+      live.fullPools.add(pool); delete live.models[pool];
+      live.pools = live.pools.map(p => p.pool === pool ? { pool, n: games.length } : p);
+      bigCache.clear(); if (st.pool === pool) { paintStudio(); if (st.step === 4) { pools(); facts(); } }
+    } catch (err) { /* keep the daily-rating preview */ }
+    finally { if (live.filling === pool) live.filling = ""; }
+  }
+
+  const stGo = byId("stGo"), stEl = byId("studio");
+  function setFoot() {
+    const note = byId("stFootNote");
+    stGo.disabled = false;
+    if (st.step === 1) { stGo.textContent = "Next: colourway"; note.textContent = `${DESIGN_NAME[st.design]} selected`; }
+    if (st.step === 2) { stGo.textContent = GIFT ? "Next: their username" : "Next: your username"; note.textContent = `${DESIGN_NAME[st.design]} · ${PALETTES[st.palette].name}`; }
+    if (st.step === 3) { stGo.textContent = GIFT ? "Show their poster" : "Show my poster"; note.textContent = "Free preview, no sign-up"; }
+    if (st.step === 4) {
+      stGo.textContent = `Continue to payment · ${priceOf(st.format)}`;
+      note.textContent = `${DESIGN_NAME[st.design]} · ${PALETTES[st.palette].name} · ${st.format === "print" ? "A3 print" : "Digital file"}`;
+      const d = byId("deliveryLine"), txt = st.format === "print" ? [SHOP.printDelivery, SHOP.christmasCutoff].filter(Boolean).join(" ") : "Your file arrives by email, usually the same day you approve the proof.";
+      d.textContent = txt; d.hidden = !txt;
+    }
+  }
+  function go(n) {
+    st.step = n;
+    byId("stPick").hidden = n !== 1;
+    byId("stStage").hidden = n === 1;
+    byId("stStage").className = "st-stage on-" + n;
+    document.querySelectorAll("[data-panel]").forEach(el => el.hidden = +el.dataset.panel !== n);
+    byId("stProgLabel").textContent = `${n} of 4 · ${STEP_NAMES[n - 1]}`;
+    byId("stProg").style.width = n * 25 + "%";
+    byId("stBack").style.visibility = n === 1 ? "hidden" : "visible";
+    byId("stLoad").hidden = true; byId("stBadge").hidden = true;
+    byId("stBody").scrollTop = 0;
+    setFoot();
+    track("studio_step", { step: n });
+    if (n === 1) { pickSub(); const sel = minis.find(m => m.layout === st.design); if (sel) requestAnimationFrame(() => sel.btn.scrollIntoView({ block: "nearest", inline: "center" })); }
+    if (n === 3) { stUser.value = st.user; stName.value = st.name; setTimeout(() => (st.user ? stName : stUser).focus({ preventScroll: true }), 50); }
+    if (n === 4) result();
+    requestAnimationFrame(paintStudio);
+  }
+  function pickSub() {
+    const sub = byId("stPickSub");
+    if (isReady()) sub.textContent = `Drawn from ${GIFT ? "their" : "your"} real games. Tap to choose.`;
+    else if (live.status === "loading" && live.key === keyOf()) sub.textContent = `Loading ${GIFT ? "their" : "your"} games: the designs redraw with them in a moment.`;
+    else sub.textContent = "Each one is drawn from every rated game. These use example games until you add a username.";
+  }
+  function next() {
+    if (st.step === 1 || st.step === 2) return go(st.step + 1);
+    if (st.step === 3) {
+      const u = cleanUser(stUser.value);
+      if (!USER_OK.test(u)) { hint(u ? "Usernames only use letters, numbers, hyphens and underscores." : (GIFT ? "Add their username so we can find their games." : "Add your username so we can find your games."), true); stUser.focus(); track("details_blocked"); return; }
+      st.user = u; st.name = stName.value.replace(/\s+/g, " ").trim();
+      st.site = document.querySelector('input[name="stSite"]:checked').value;
+      track("details_done", { site: st.site, named: st.name ? "yes" : "no" });
+      return go(4);
+    }
+    if (st.step === 4) checkout();
+  }
+  stGo.addEventListener("click", next);
+  byId("stBack").addEventListener("click", () => { if (st.step > 1) go(st.step - 1); });
+
+  // Step 4: wait for the games if they're still loading, then show the real poster
+  async function result() {
+    const load = byId("stLoad");
+    if (!isReady()) {
+      load.hidden = false; stGo.disabled = true;
+      await startLoad();
+      if (st.step !== 4) return;
+      load.hidden = true; stGo.disabled = false;
+      if (live.status === "error" && live.err !== "network") {
+        go(3);
+        const who = SITES[live.site || st.site];
+        hint(live.err === "few"
+          ? `We found ${st.user} on ${who}, but fewer than 10 rated games in any time control. The poster needs a few more games first.`
+          : st.siteLocked ? `We couldn’t find “${st.user}” on ${who}. Check the spelling, or switch site above.` : `We couldn’t find “${st.user}” on Chess.com or Lichess. Check the spelling, exactly as on the profile.`, true);
+        return;
+      }
+    }
+    pools(); facts(); setFoot();
+    requestAnimationFrame(paintStudio);
+    track("poster_shown", { real: isReady() ? "yes" : "no" });
+  }
+  function pools() {
+    const box = byId("stPools");
+    box.innerHTML = "";
+    byId("stPoolField").hidden = !isReady() || live.pools.length < 2;
+    if (!isReady()) return;
+    live.pools.forEach(p => {
+      const l = document.createElement("label");
+      l.innerHTML = `<input type="radio" name="stPool" value="${p.pool}" ${p.pool === st.pool ? "checked" : ""}><span>${POOL_LABEL[p.pool]}<small>${fmt(p.n)} games</small></span>`;
+      box.appendChild(l);
+    });
+  }
+  byId("stPools").addEventListener("change", e => {
+    st.pool = e.target.value; track("pool_changed", { pool: st.pool });
+    if (approxFor(st.pool)) fillLichess(live.key, st.pool);
+    facts(); paintStudio();
+  });
+  function facts() {
+    const el = byId("stFacts"), badge = byId("stBadge"), title = byId("stResultTitle");
+    const whose = GIFT ? "their" : "your";
+    if (!isReady()) {
+      title.innerHTML = `Here’s the <em>idea.</em>`;
+      el.innerHTML = `We couldn’t reach ${SITES[st.site]} just now, so this preview uses example games.<small>You can still order: we draw ${whose} poster from ${whose} real games for the proof.</small>`;
+      badge.hidden = false; badge.textContent = "Preview with example games";
+      return;
+    }
+    const m = modelFor(st.pool), p = live.pools.find(x => x.pool === st.pool) || { n: m.n };
+    title.innerHTML = `Here’s ${GIFT ? "their" : "your"} <em>journey.</em>`;
+    if (approxFor(st.pool)) {
+      el.innerHTML = `<b>${fmt(p.n)}</b> ${POOL_LABEL[st.pool].toLowerCase()} games on Lichess · best rating <b>${fmt(m.ratings[m.peakI])}</b>` +
+        `<small>${live.full && live.filling === st.pool ? `Adding every game: ${fmt(live.full)} of ${fmt(live.fullOf || p.n)}…` : "Drawn from daily ratings while every game loads."} The print uses every game.</small>`;
+      badge.hidden = false; badge.textContent = "Preview from daily ratings";
+    } else {
+      el.innerHTML = `<b>${fmt(m.n)}</b> ${POOL_LABEL[st.pool].toLowerCase()} games on ${SITES[live.site]} · peak <b>${fmt(m.ratings[m.peakI])}</b> on ${day(m.games[m.peakI].when)}` +
+        `<small>Drawn from every rated game. Tap the poster to see it full size.</small>`;
+      badge.hidden = true;
+    }
+  }
+
+  // Not ready to buy: send the details so the owner can email the preview (and one reminder)
+  byId("stSave").addEventListener("submit", e => {
+    e.preventDefault();
+    const em = byId("stEmail"), h = byId("stSaveHint"), btn = byId("stSaveGo");
+    const email = em.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { em.setAttribute("aria-invalid", "true"); h.textContent = "That email doesn’t look right."; h.classList.add("err"); em.focus(); return; }
+    em.setAttribute("aria-invalid", "false"); h.classList.remove("err");
+    btn.disabled = true; btn.textContent = "Sending…";
+    const m = isReady() ? modelFor(st.pool) : null;
+    const link = `https://chessjourney.co.uk/?u=${encodeURIComponent(st.user)}&site=${live.site || st.site}&d=${st.design}&c=${st.palette}${st.pool ? "&p=" + st.pool : ""}${st.name ? "&n=" + encodeURIComponent(st.name) : ""}${GIFT ? "&gift" : ""}#make`;
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: SHOP.orderEmailKey, from_name: "Chess Journey", subject: `Preview request: ${st.user} · ${DESIGN_NAME[st.design]} · ${PALETTES[st.palette].name}`,
+        email, username: st.user, site: SITES[live.site || st.site], name_on_poster: st.name || "(use the username)", design: DESIGN_NAME[st.design],
+        colourway: PALETTES[st.palette].name, time_control: st.pool ? POOL_LABEL[st.pool] : "", games: m ? m.n : "", peak: m ? m.ratings[m.peakI] : "",
+        gift: GIFT ? "Yes" : "No", source: SOURCE, poster_link: link,
+        next_step: "Reply to this email with their poster: open the poster link, screenshot it (or send the link itself), and add a line on ordering before the Christmas cut-off.",
+      }),
+    }).then(r => { if (!r.ok) throw new Error(r.status); })
+      .then(() => {
+        byId("stSave").innerHTML = `<p class="st-saved"><b>On its way.</b> We’ll email ${GIFT ? "their" : "your"} poster to ${email.replace(/[<>&"]/g, "")} within 24 hours.</p>`;
+        track("preview_emailed", { source: SOURCE });
+        if (consented && window.fbq) { try { fbq("track", "Lead", { content_name: "poster_preview" }); } catch (err) {} }
+      })
+      .catch(() => { btn.disabled = false; btn.textContent = "Email it to me"; h.textContent = `That didn’t send. Try again, or email us at ${SHOP.email}.`; h.classList.add("err"); });
+  });
+
+  // Stripe keeps this reference on the order: source--design--colourway--pool--site--username--Name_On_Poster
+  const refName = n => n.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9 -]/g, "").trim().replace(/\s+/g, "_").slice(0, 40);
+  function checkout() {
+    const f = st.format, link = f === "print" ? SHOP.printLink : SHOP.digitalLink;
+    if (!link) { byId("setupNotice").hidden = false; return; }
+    const site = live.site || st.site, rn = st.name ? refName(st.name) : "";
+    const ref = `${SOURCE}${GIFT ? "-gift" : ""}--${st.design}--${st.palette}--${st.pool || "auto"}--${site}--${st.user}${rn ? "--" + rn : ""}`.slice(0, 200);
+    const value = parseFloat(priceOf(f).replace(/[^0-9.]/g, "")) || 0;
+    const m = isReady() ? modelFor(st.pool) : null;
+    try { localStorage.setItem("cj-order", JSON.stringify({ u: st.user, n: st.name, design: st.design, palette: st.palette, f, value, price: priceOf(f), source: SOURCE, gift: GIFT, ref, site, pool: st.pool, games: m ? m.n : "", at: Date.now() })); } catch (err) {}
+    track("checkout_clicked", { format: f, design: st.design, colour: st.palette, source: SOURCE, real: m ? "yes" : "no" });
+    stGo.disabled = true; stGo.textContent = "Opening secure checkout…";
+    if (consented && window.fbq) { try { fbq("track", "InitiateCheckout", { currency: "GBP", value, content_name: f }); } catch (err) {} }
+    location.href = `${link}${link.includes("?") ? "&" : "?"}client_reference_id=${encodeURIComponent(ref)}`;
+  }
+
+  // Open and close; the phone's back button closes the studio
+  let lastFocus = null;
+  function openStudio(step, opts = {}) {
+    if (opts.user !== undefined) st.user = opts.user;
+    if (opts.format) setFormat(opts.format);
+    lastFocus = document.activeElement;
+    if (!st.open) {
+      st.open = true; stEl.hidden = false;
+      document.documentElement.style.overflow = "hidden";
+      if (location.hash !== "#make") history.pushState({ cj: "studio" }, "", "#make");
+      track("studio_opened", { source: SOURCE, from: opts.from || "" });
+    }
+    setDesign(st.design); setPalette(st.palette); setSite(st.site);
+    if (st.user) startLoad();
+    go(step || 1);
+    stGo.focus({ preventScroll: true });
+    if (st.user && live.promise) live.promise.then(() => { if (st.open && st.step === 1) { pickSub(); paintStudio(); } });
+  }
+  function hideStudio() {
+    if (!st.open) return;
+    st.open = false; stEl.hidden = true;
+    document.documentElement.style.overflow = "";
+    track("studio_closed", { step: st.step });
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+  byId("stClose").addEventListener("click", () => { if (history.state && history.state.cj === "studio") history.back(); else { hideStudio(); history.replaceState(null, "", location.pathname + location.search); } });
+  window.addEventListener("popstate", () => { if (st.open && location.hash !== "#make") hideStudio(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && st.open && byId("lightbox").hidden) byId("stClose").click(); });
+
+  // Every way in: hero box, header and price buttons, search-page hand-offs and saved poster links
+  const heroUser = byId("heroUser");
   heroUser.addEventListener("input", () => {
-    const u = heroUser.value.trim().replace(/^@/, "");
+    const u = cleanUser(heroUser.value);
     if (u.length >= 3) trackOnce("hero_username_typed");
     heroUser.setAttribute("aria-invalid", u && !USER_OK.test(u) ? "true" : "false");
     posters[0].title = u; posters[0].player = u;
     paint(posters[0]);
   });
-  document.getElementById("heroTry").addEventListener("submit", e => {
+  byId("heroTry").addEventListener("submit", e => {
     e.preventDefault();
-    const u = heroUser.value.trim().replace(/^@/, "");
+    const u = cleanUser(heroUser.value);
     if (u && !USER_OK.test(u)) { heroUser.setAttribute("aria-invalid", "true"); heroUser.focus(); return; }
     track("hero_cta_clicked", { typed: u ? "yes" : "no" });
-    if (u) {
-      userInput.value = u;
-      userInput.dispatchEvent(new Event("input"));
-      const pal = document.getElementById("cfg-" + posters[0].palette);
-      if (pal && !pal.checked) { pal.checked = true; maker.palette = posters[0].palette; paint(maker); }
-    }
-    document.getElementById("order").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-    setTimeout(() => (u ? goBtn : userInput).focus({ preventScroll: true }), 600);
+    setPalette(posters[0].palette);
+    openStudio(1, { user: u, from: "hero" });
   });
-  // A username carried over from one of the search pages (?u=…) fills both boxes
-  (() => {
-    const u = (new URLSearchParams(location.search).get("u") || "").trim().replace(/^@/, "");
-    if (!u || !USER_OK.test(u)) return;
-    heroUser.value = u; heroUser.dispatchEvent(new Event("input"));
-    userInput.value = u; userInput.dispatchEvent(new Event("input"));
-    track("username_carried");
-  })();
-  document.getElementById("maker").addEventListener("change", e => {
-    if (e.target.name === "cfgDesign") { maker.layout = e.target.value; paint(maker); track("design_changed", { design: e.target.value }); }
-    if (e.target.name === "cfgPalette") { maker.palette = e.target.value; paint(maker); track("colour_changed", { colour: e.target.value }); }
-    if (e.target.name === "cfgFormat") { refreshGo(); track("format_changed", { format: e.target.value }); }
-  });
-
-  // Header and hero buttons pick the format, then land on the maker
-  document.querySelectorAll("[data-format]").forEach(a => a.addEventListener("click", () => {
-    const r = document.getElementById("cfg-" + a.dataset.format);
-    if (r) { r.checked = true; refreshGo(); }
-    setTimeout(() => userInput.focus({ preventScroll: true }), 400);
-  }));
-
-  document.getElementById("maker").addEventListener("submit", e => {
+  document.querySelectorAll("[data-format]").forEach(a => a.addEventListener("click", e => {
     e.preventDefault();
-    const u = cleanUser();
-    if (!USER_OK.test(u)) {
-      track("checkout_blocked_username");
-      setHint(u ? "Usernames only use letters, numbers, hyphens and underscores." : "Add your username so we know whose games to use.", true);
-      userInput.focus();
-      return;
+    openStudio(1, { format: a.dataset.format, from: a.dataset.format });
+  }));
+  (() => {
+    const q = new URLSearchParams(location.search);
+    const u = cleanUser(q.get("u") || "");
+    if (q.get("site") === "li" || q.get("site") === "cc") { st.site = q.get("site"); st.siteLocked = true; }
+    if (DESIGN_NAME[q.get("d")]) st.design = q.get("d");
+    if (PALETTES[q.get("c")] && OFFERED.includes(q.get("c"))) st.palette = q.get("c");
+    if (q.get("n")) st.name = q.get("n").slice(0, 28);
+    const want = q.get("p");
+    if (u && USER_OK.test(u)) {
+      st.user = u; heroUser.value = u; heroUser.dispatchEvent(new Event("input"));
+      track("username_carried");
+      // A saved poster link goes straight to the poster; a search-page hand-off starts at the designs
+      const saved = q.get("d") && q.get("c");
+      openStudio(saved ? 4 : 1, { from: q.get("from") ? "seo" : saved ? "link" : "url" });
+      if (want && POOL_LABEL[want]) live.promise && live.promise.then(() => { if (live.pools.some(p => p.pool === want)) { st.pool = want; if (st.step === 4) result(); } });
+    } else if (location.hash === "#make" || location.hash === "#order" && q.get("from")) {
+      history.replaceState(null, "", location.pathname + location.search);
+      openStudio(1, { from: "url" });
     }
-    const f = format(), link = f === "print" ? SHOP.printLink : SHOP.digitalLink;
-    if (!link) { document.getElementById("setupNotice").hidden = false; return; }
-    // Stripe keeps this reference on the order: source--design--colourway--username--Name_On_Poster
-    const n = cleanName(), rn = n ? refName(n) : "";
-    const ref = `${SOURCE}${GIFT ? "-gift" : ""}--${maker.layout}--${maker.palette}--${u}${rn ? "--" + rn : ""}`;
-    const value = parseFloat(priceOf(f).replace(/[^0-9.]/g, "")) || 0;
-    try { localStorage.setItem("cj-order", JSON.stringify({ u, n, design: maker.layout, palette: maker.palette, f, value, price: priceOf(f), source: SOURCE, gift: GIFT, ref, at: Date.now() })); } catch (err) {}
-    track("checkout_clicked", { format: f, design: maker.layout, colour: maker.palette, source: SOURCE });
-    goBtn.disabled = true; goBtn.textContent = "Opening secure checkout…";
-    if (consented && window.fbq) { try { fbq("track", "InitiateCheckout", { currency: "GBP", value, content_name: f }); } catch (err) {} }
-    location.href = `${link}${link.includes("?") ? "&" : "?"}client_reference_id=${encodeURIComponent(ref)}`;
-  });
+  })();
 
   document.querySelectorAll("[data-price]").forEach(el => el.textContent = el.dataset.price === "print" ? SHOP.printPrice : SHOP.digitalPrice);
-  refreshGo();
-  window.addEventListener("pageshow", () => { goBtn.disabled = false; refreshGo(); });
-  document.getElementById("setupNotice").hidden = !!(SHOP.printLink && SHOP.digitalLink);
-  document.getElementById("contactEmail").textContent = SHOP.email;
+  window.addEventListener("pageshow", () => { stGo.disabled = false; setFoot(); });
+  byId("setupNotice").hidden = !!(SHOP.printLink && SHOP.digitalLink);
+  byId("contactEmail").textContent = SHOP.email;
   if (/[?&]thanks\b/.test(location.search)) {
     let o = null;
     try { o = JSON.parse(localStorage.getItem("cj-order") || "null"); } catch (err) {}
@@ -1351,7 +1885,7 @@ const SHOP = {
   const bigCache = new Map();
   function big(i) {
     const p = posters[i];
-    const key = [i, p.palette, p.pool, p.title, p.player, p.model ? p.model.n : 0].join("|");
+    const key = [i, p.layout, p.palette, p.pool, p.title, p.player, p.model ? p.model.n : 0].join("|");
     if (bigCache.has(key)) return bigCache.get(key);
     const c = document.createElement("canvas");
     c.width = BIG; c.height = Math.round(BIG * RATIO);
