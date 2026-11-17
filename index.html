@@ -265,7 +265,9 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
 .st-prog-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 .st-prog { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: transparent; }
 .st-prog i { display: block; height: 100%; width: 25%; background: var(--accent); transition: width .3s; }
-.st-body { overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.st-bar { grid-row: 1; grid-column: 1; }
+.st-foot { grid-row: 3; grid-column: 1; }
+.st-body { grid-row: 2; grid-column: 1; overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 .st-inner { max-width: 1160px; margin: 0 auto; padding: 28px max(16px, env(safe-area-inset-right, 0px)) 36px max(16px, env(safe-area-inset-left, 0px)); }
 .st-head { display: grid; gap: 6px; margin-bottom: 20px; }
 .st-head h2 { font-size: clamp(28px, 3.6vw, 42px); }
@@ -304,12 +306,24 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
 .st-pbar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--accent); transition: width .35s ease-out; }
 .st-load .st-pbar { width: min(260px, 70%); }
 .st-load-pct { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
-.st-loading { display: grid; gap: 8px; margin-bottom: 18px; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
-.st-loading-row { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; font-weight: 500; }
-.st-loading-row [data-load-pct] { font-family: var(--font-mono); font-size: 13px; color: var(--muted); font-weight: 400; }
-/* While their games load, the example posters wait quietly in the background, then the real ones fade in */
-.studio canvas { transition: opacity .45s, filter .45s; }
-.studio.is-loading .st-mini canvas, .studio.is-loading #stPoster { opacity: .28; filter: blur(3px) grayscale(.6); }
+/* The in-between page while their games load: full screen, one thing to look at */
+.st-wait { grid-row: 2 / 4; grid-column: 1; z-index: 5; display: grid; place-items: center; background: var(--page); padding: 24px max(20px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 24px) max(20px, env(safe-area-inset-left, 0px)); animation: stfade .25s ease-out; }
+.st-wait-inner { width: min(440px, 100%); display: grid; justify-items: center; gap: 14px; text-align: center; }
+.st-wait-art { width: 200px; height: auto; margin-bottom: 6px; }
+.st-wait-art .grid { stroke: var(--line); stroke-width: 1; fill: none; }
+.st-wait-art .line { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 260; stroke-dashoffset: 260; animation: stdraw 2.6s ease-in-out infinite; }
+.st-wait-art .peak { fill: var(--page); stroke: var(--ink); stroke-width: 2.5; opacity: 0; animation: stpeak 2.6s ease-in-out infinite; }
+@keyframes stdraw { 0% { stroke-dashoffset: 260; } 70%, 100% { stroke-dashoffset: 0; } }
+@keyframes stpeak { 0%, 62% { opacity: 0; } 72%, 100% { opacity: 1; } }
+@keyframes stfade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .st-wait-art .line { animation: none; stroke-dashoffset: 0; } .st-wait-art .peak { animation: none; opacity: 1; } .st-wait { animation: none; } }
+.st-wait-title { font-size: clamp(26px, 5vw, 36px); min-height: 1.2em; transition: opacity .25s; }
+.st-wait-title.swap { opacity: 0; }
+.st-wait-detail { color: var(--muted); font-size: 15px; min-height: 1.5em; }
+.st-wait .st-pbar { height: 8px; margin-top: 6px; }
+.st-wait-pct { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.st-wait-note { font-size: 13px; color: var(--muted); max-width: 30em; margin-top: 10px; }
+.st-wait-cancel { background: none; border: 0; padding: 6px; font: inherit; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .st-panel { display: grid; gap: 20px; align-content: start; min-width: 0; }
 .st-panel .st-head { margin-bottom: 0; }
 
@@ -544,10 +558,6 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
   <div class="st-body" id="stBody">
     <div class="st-inner">
       <!-- Step 1: design -->
-      <div class="st-loading" id="stLoading" hidden>
-        <div class="st-loading-row"><span data-load-text role="status">Finding your games…</span><span data-load-pct>0%</span></div>
-        <span class="st-pbar" aria-hidden="true"><i></i></span>
-      </div>
       <div id="stPick">
         <div class="st-head"><h2>Pick a <em>design.</em></h2><p class="st-sub" id="stPickSub">Each one is drawn from every rated game. Tap to choose.</p></div>
         <div class="st-designs" role="radiogroup" aria-label="Design">
@@ -562,7 +572,7 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
         <div class="st-wall">
           <button type="button" class="frame" data-poster="3" aria-label="View the poster full size"><span class="mat"><canvas id="stPoster" role="img" aria-label="Your poster preview"></canvas></span></button>
           <span class="st-badge" id="stBadge" hidden></span>
-          <div class="st-load" id="stLoad" hidden><span data-load-text>Finding your games…</span><span class="st-pbar" aria-hidden="true"><i></i></span><span class="st-load-pct" data-load-pct>0%</span></div>
+          
         </div>
 
         <div class="st-panel" data-panel="2">
@@ -634,6 +644,22 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
           </form>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="st-wait" id="stWait" hidden>
+    <div class="st-wait-inner">
+      <svg class="st-wait-art" viewBox="0 0 220 120" aria-hidden="true">
+        <path class="grid" d="M10 100H210M10 70H210M10 40H210"/>
+        <path class="line" d="M12 98 C28 96 34 88 46 90 S66 74 78 78 S96 82 104 66 S124 58 134 62 S150 40 162 44 S182 24 194 30 L206 20"/>
+        <circle class="peak" cx="206" cy="20" r="5"/>
+      </svg>
+      <h2 class="st-wait-title" id="stWaitTitle" aria-live="polite">Loading your chess data…</h2>
+      <p class="st-wait-detail" data-load-text>Finding your games…</p>
+      <span class="st-pbar" aria-hidden="true"><i></i></span>
+      <p class="st-wait-pct" data-load-pct>0%</p>
+      <p class="st-wait-note" id="stWaitNote">We read your public games straight from Chess.com or Lichess. Nothing to log in to.</p>
+      <button type="button" class="st-wait-cancel" id="stWaitCancel">Change username</button>
     </div>
   </div>
 
@@ -1545,10 +1571,7 @@ const SHOP = {
   }
   function loadingUI() {
     const loading = live.status === "loading" && live.key === keyOf();
-    stEl.classList.toggle("is-loading", loading);
-    byId("stLoading").hidden = !loading || st.step === 4;
     if (!loading && live.status === "ready") {
-      setProgress(GIFT ? "Their games are in." : "Your games are in.", 1);
       if (st.step === 1) pickSub();
       paintStudio();
     }
@@ -1676,7 +1699,7 @@ const SHOP = {
     byId("stProgLabel").textContent = `${n} of 4 · ${STEP_NAMES[n - 1]}`;
     byId("stProg").style.width = n * 25 + "%";
     byId("stBack").style.visibility = n === 1 ? "hidden" : "visible";
-    byId("stLoad").hidden = true; byId("stBadge").hidden = true;
+    byId("stBadge").hidden = true;
     loadingUI();
     byId("stBody").scrollTop = 0;
     setFoot();
@@ -1700,7 +1723,7 @@ const SHOP = {
       st.user = u; st.name = stName.value.replace(/\s+/g, " ").trim();
       st.site = document.querySelector('input[name="stSite"]:checked').value;
       track("details_done", { site: st.site, named: st.name ? "yes" : "no" });
-      return go(4);
+      return isReady() ? go(4) : waitThen(4);
     }
     if (st.step === 4) checkout();
   }
@@ -1709,25 +1732,61 @@ const SHOP = {
 
   // Step 4: wait for the games if they're still loading, then show the real poster
   async function result() {
-    const load = byId("stLoad");
-    if (!isReady()) {
-      load.hidden = false; stGo.disabled = true;
-      await startLoad();
-      if (st.step !== 4) return;
-      load.hidden = true; stGo.disabled = false;
-      if (live.status === "error" && live.err !== "network") {
-        go(3);
-        const who = SITES[live.site || st.site];
-        hint(live.err === "few"
-          ? `We found ${st.user} on ${who}, but fewer than 10 rated games in any time control. The poster needs a few more games first.`
-          : st.siteLocked ? `We couldn’t find “${st.user}” on ${who}. Check the spelling, or switch site above.` : `We couldn’t find “${st.user}” on Chess.com or Lichess. Check the spelling, exactly as on the profile.`, true);
-        return;
-      }
-    }
+    if (st.user && !isReady() && live.status !== "error") return waitThen(4);
+    if (live.status === "error" && live.err !== "network" && live.key === keyOf()) return loadError();
     pools(); facts(); setFoot();
     requestAnimationFrame(paintStudio);
     track("poster_shown", { real: isReady() ? "yes" : "no" });
   }
+  function loadError() {
+    go(3);
+    const who = SITES[live.site || st.site];
+    hint(live.err === "few"
+      ? `We found ${st.user} on ${who}, but fewer than 10 rated games in any time control. The poster needs a few more games first.`
+      : st.siteLocked ? `We couldn’t find “${st.user}” on ${who}. Check the spelling, or switch site above.` : `We couldn’t find “${st.user}” on Chess.com or Lichess. Check the spelling, exactly as on the profile.`, true);
+  }
+
+  // The full-screen loading page between steps: real progress underneath, a few lines to read on top
+  const WAIT_LINES = GIFT
+    ? ["Loading their chess data…", "Finding every rated game…", "Tracing their rating, year by year…", "Finding their peak…", "Counting wins, draws and losses…", "Drawing their poster…"]
+    : ["Loading your chess data…", "Finding every rated game…", "Tracing your rating, year by year…", "Finding your peak…", "Counting wins, draws and losses…", "Drawing your poster…"];
+  let waitRun = 0;
+  async function waitThen(target) {
+    const run = ++waitRun, waitEl = byId("stWait"), title = byId("stWaitTitle");
+    startLoad();
+    if (!live.promise) return go(target);
+    waitEl.hidden = false; stGo.disabled = true;
+    byId("stProgLabel").textContent = GIFT ? "Loading their games" : "Loading your games";
+    byId("stBack").style.visibility = "hidden";
+    let k = 0;
+    title.textContent = WAIT_LINES[0];
+    const spin = setInterval(() => {
+      k = Math.min(k + 1, WAIT_LINES.length - 2);
+      title.classList.add("swap");
+      setTimeout(() => { title.textContent = WAIT_LINES[k]; title.classList.remove("swap"); }, 250);
+    }, 1900);
+    track("wait_shown", { target });
+    const t0 = Date.now();
+    await live.promise;
+    // Long enough to read, never a flash
+    await wait(Math.max(0, 2200 - (Date.now() - t0)));
+    clearInterval(spin);
+    if (run !== waitRun || !st.open) return;
+    if (live.status === "ready") {
+      setProgress(GIFT ? "Their games are in." : "Your games are in.", 1);
+      title.textContent = WAIT_LINES[WAIT_LINES.length - 1];
+      await wait(700);
+      if (run !== waitRun || !st.open) return;
+    }
+    waitEl.hidden = true; stGo.disabled = false;
+    if (live.status === "error" && live.err !== "network") return loadError();
+    go(target);
+  }
+  byId("stWaitCancel").addEventListener("click", () => {
+    waitRun++; byId("stWait").hidden = true; stGo.disabled = false;
+    track("wait_cancelled"); go(3);
+  });
+
   function pools() {
     const box = byId("stPools");
     box.innerHTML = "";
@@ -1823,10 +1882,9 @@ const SHOP = {
       track("studio_opened", { source: SOURCE, from: opts.from || "" });
     }
     setDesign(st.design); setPalette(st.palette); setSite(st.site);
-    if (st.user) startLoad();
-    go(step || 1);
     stGo.focus({ preventScroll: true });
-    if (st.user && live.promise) live.promise.then(() => { if (st.open && st.step === 1) { pickSub(); paintStudio(); } });
+    if (st.user && USER_OK.test(st.user) && !isReady()) waitThen(step || 1);
+    else go(step || 1);
   }
   function hideStudio() {
     if (!st.open) return;
