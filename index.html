@@ -295,9 +295,9 @@ footer .inner { padding-block: 32px 48px; display: flex; flex-wrap: wrap; justif
 .st-stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 40px; align-items: start; }
 .st-wall {
   position: sticky; top: 0; display: grid; justify-items: center; align-content: center;
-  background: linear-gradient(180deg, var(--wall) 0%, var(--wall) 82%, var(--wall-shade) 100%); border-radius: 14px; padding: 32px 28px; min-height: 100%;
+  background: linear-gradient(180deg, var(--wall) 0%, var(--wall) 82%, var(--wall-shade) 100%); border-radius: 14px; padding: 32px 28px; align-content: start;
 }
-.st-wall .frame { max-width: min(470px, calc((100dvh - 250px) / 1.36)); }
+.st-wall .frame { max-width: min(470px, calc((100dvh - 260px) / 1.36)); min-width: 180px; }
 .st-badge { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: center; }
 .st-load { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 14px; padding: 24px; text-align: center; background: rgba(220, 216, 208, .82); border-radius: 14px; font-weight: 500; }
 .st-spin { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(0,0,0,.12); border-top-color: var(--ink); animation: stspin .8s linear infinite; }
@@ -1440,7 +1440,7 @@ const SHOP = {
   }
 
   // Lichess: the daily rating history comes back instantly; every game streams in behind it
-  const LI_POOL = { Bullet: "bullet", Blitz: "blitz", Rapid: "rapid", Classical: "classical", Correspondence: "daily" };
+  const LI_POOL = { bullet: "bullet", blitz: "blitz", rapid: "rapid", classical: "classical", correspondence: "daily" };
   const LI_PERF = { bullet: "bullet", blitz: "blitz", rapid: "rapid", classical: "classical", correspondence: "daily" };
   async function loadLichess(u, progress) {
     const user = await getJSON(`https://lichess.org/api/user/${encodeURIComponent(u)}`);
@@ -1450,7 +1450,7 @@ const SHOP = {
     const name = user.username || u, out = [], counts = {};
     for (const [k, v] of Object.entries(user.perfs || {})) if (LI_PERF[k]) counts[LI_PERF[k]] = v.games || 0;
     for (const h of hist || []) {
-      const pool = LI_POOL[h.name];
+      const pool = LI_POOL[String(h.name || "").toLowerCase()];
       if (!pool) continue;
       let prev = null;
       for (const [y, mo, d, r] of h.points || []) {
